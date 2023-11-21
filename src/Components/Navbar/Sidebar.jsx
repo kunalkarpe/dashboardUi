@@ -8,7 +8,7 @@ import { IoMdSettings } from "react-icons/io";
 import { BiLogIn } from "react-icons/bi";
 import girl from "../../assets/girl.avif";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 
 const Sidebar = () => {
   const sidebarData = [
@@ -54,6 +54,7 @@ const Sidebar = () => {
   // For CLoseing and opening sidebar
   const [toggle, setToggle] = useState(false);
   const handleToogle = () => {
+     
     if (!toggle) {
       setToggle(true);
     } else {
@@ -95,7 +96,7 @@ const Sidebar = () => {
 
     // Using splice method for changing the position
     if (targetedIndex != 0) {
-       updatedItem.splice(targetedIndex + 1, 0, item);
+      updatedItem.splice(targetedIndex + 1, 0, item);
       setBarData(updatedItem);
       console.log(updatedItem, "is new bardata");
     } else {
@@ -103,22 +104,23 @@ const Sidebar = () => {
       setBarData(updatedItem);
       console.log(updatedItem, "is new bardata");
     }
-  
   };
+
+ 
   return (
     <>
-      <div className=" flex lg:top-0 lg:left-0 lg:h-[100vh] lg:fixed sm:h-screen sm:top-0 sm:left-0 sm:fixed xs:h-screen xs:top-0 xs:left-0 xs:fixed z-50 ">
+      <div className=" flex lg:top-0 lg:left-0 lg:h-[100vh] lg:fixed sm:h-screen sm:top-0 sm:left-0 sm:fixed xs:h-screen xs:top-0 xs:left-0 xs:fixed z-40 ">
         <div
-          className={`flex border border-transparent h-full top-0 left-0 relative fixed bg-white shadow-lg md:${
-            toggle ? "w-[4vw]" : "w-[14vw]"
-          }`}
-        >
+          className={`flex border border-transparent h-[108vh] top-0 left-0 relative fixed bg-white shadow-lg lg:w-[15vw]   md:${
+            !toggle ? " w-[4vw]" : " w-[20vw]"
+          } `}
+        > 
           <aside
-            className={`lg:w-[14vw]    ${
-              toggle ? "sm:w-[4vw]" : "sm:w-[14vw]"
-            } ${
-              toggle ? "md:w-[4vw]" : "md:w-[14vw]"
-            }  xs:w-[4vw] border border-transparent sm:h-[106.5vh] sm:bg-white sm:border sm:border-transparent md:flex-col`}
+            className={`lg:w-[15vw]    md:${
+              !toggle ? " w-[4vw]" : " w-[120vw]"
+            }  sm:${
+              !toggle ? " w-[5vw]" : " w-[120vw]"
+            }  xs:w-[4vw]    sm:bg-white sm:border sm:border  md:flex-col border border-transparent  h-[140vh]`}
           >
             {" "}
             <Link to="/">
@@ -126,15 +128,24 @@ const Sidebar = () => {
                 <span>
                   <BiLogoDeviantart className="mt-3 ms-3 sm:ms-1 xs:ms-1 " />
                 </span>
-                <p className="text-lg mt-2 font-bold ms-4  lg:block md:hidden xs:hidden sm:hidden">
+                <p
+                  className={`text-lg mt-2 font-bold ms-4   md:${
+                    !toggle ? "hidden" : "visible"
+                  }  sm:${
+                    !toggle ? "hidden" : "visible"
+                  } lg:block     `}
+                >
+                  {" "}
                   Niond{" "}
                 </p>
               </div>
             </Link>
             {/* For Buutons  */}
             <div
-              className={`mt-6 ms-2 sm:ms-0 flex sm:flex-col md:flex-col border border-transparent  ${
-                toggle ? "sm:w-[2vw]" : "sm:w-[13vw]"
+              className={`mt-6 ms-2 sm:ms-0 flex sm:flex-col md:flex-col border border-transparent bg-white lg:w-[13vw]  md:${
+                !toggle ? " w-[3vw]" : " w-[18vw]"
+              } sm:${
+                !toggle ? " w-[5vw]" : " w-[18vw]"
               } md-4`}
             >
               {barData.map((items) => {
@@ -150,17 +161,26 @@ const Sidebar = () => {
                     >
                       <Link to={items.path}>
                         <button
-                          className={` hover:bg-lime-300 py-2 pr-8   hover:rounded-xl   border border-transparent ${
-                            toggle ? "w-[2vw]" : "w-[13vw]"
-                          }   `}
+                          className={` hover:bg-lime-300 lg:py-2 lg:pr-8 md:py-1 md:pr-6 sm:pr-2 sm:py-1  hover:rounded-xl   border border-transparent md:${
+                            !toggle ? " w-[2vw]" : "w-[16vw]"
+                          } sm:${
+                            !toggle ? " w-[4vw]" : "w-[16vw]"
+                          } lg:w-[14vw] `}
                         >
                           <div className="flex ">
                             <span onClick={() => handleToogle()}>
-                              <div className="mt-2 ms-2  sm:ms-1    ">
-                                {items.icon}
-                              </div>
+                              
+                                <div className="mt-2 ms-2  sm:ms-1   hover:rotate-180 transition duration-500 ease-in-out  ">
+                                  {items.icon}
+                                </div> 
                             </span>
-                            <span className="text-md font-semibold ms-4  lg:block md:hidden xs:hidden sm:hidden ">
+                            <span
+                              className={`text-md font-semibold ms-4  lg:block  md:${
+                                !toggle ? "hidden" : "visible"
+                              } sm:${
+                                !toggle ? "hidden" : "visible"
+                              }  `}
+                            >
                               {items.name}
                             </span>
                           </div>

@@ -42,7 +42,7 @@ const Modal = ({ close }) => {
   };
   return (
     <>
-      <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-200 bg-opacity-90">
+      <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-200 bg-opacity-90 z-50">
         <div className=" container   fixed ">
           <div className="  rounded-2xl bg-slate-100 w-80 h-80 border border-transparent shadow-lg top-5 relative top-[25vh] left-[40%]  ">
             <div className="text-lg px-8  mt-4 underline underline-offset-8">

@@ -3,7 +3,7 @@ const Topstore = () => {
   return (
     <>
       <div className="flex border border-transparent lg:w-full md:w-full">
-        <div className=" lg:ms-8 2xl:ms-8 md:mx-2 lg:mt-8 md:mt-4  lg:mb-4 md:mb-4  lg:pb-4 md:pb-2 lg:pt-4 bg-white rounded-2xl border border-transparent shadow-lg w-full">
+        <div className=" lg:ms-12 2xl:ms-8 md:mx-2 lg:mt-8 md:mt-4  lg:mb-4 md:mb-4  lg:pb-4 md:pb-2 lg:pt-4 bg-white rounded-2xl border border-transparent shadow-lg w-full">
           <div className="flex justify-between">
             <div className="flex lg:ms-6 md:ms-4 lg:pb-2 md:pb:1 text-xl font-bold ">Top Store</div>
             <div className="flex      text-sm font-semibold">
