@@ -103,6 +103,7 @@ const Sidebar = () => {
       setBarData(updatedItem);
       console.log(updatedItem, "is new bardata");
     }
+  
   };
   return (
     <>
@@ -142,8 +143,8 @@ const Sidebar = () => {
                     <div
                       key={items.id}
                       draggable
-                      onDragOver={(e) => dragOver(e)}
                       onDragStart={(e) => handleDragStart(e, items.id)}
+                      onDragOver={(e) => dragOver(e)}
                       onDrop={(e) => handleDrop(e, items.id)}
                       className="border border-transparent"
                     >

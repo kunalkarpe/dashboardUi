@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState } from "react"; 
 
 const fetchUser = async () => {
   const user = await axios
@@ -18,29 +18,29 @@ const User = () => {
     queryKey: ["userKey"],
     queryFn: fetchUser,
   });
-  // console.log(user, "is User");
-  // const lenght = user.id
+
   const [currentPage, setCurrentPage] = useState(1);
-  const[userId,setUserId] =useState(0)
+  const [userId, setUserId] = useState(0);
   const itemsPerPage = 5;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  console.log(endIndex)
+ const totalPages = Math.ceil((user?.length / itemsPerPage))
+  // console.log(totalPages)
   const userData = user?.slice(startIndex, endIndex);
 
   const handleNextpage = (id) => {
-    setUserId(id)
+    setUserId(id);
     setCurrentPage(currentPage + 1);
+    // console.log(user.id,"is user id")
   };
   const handlePrevPage = () => {
     setCurrentPage(currentPage - 1);
   };
-  
-  console.log(endIndex )
+
   if (isLoading) {
     return (
       <>
-        <p className="mt-20 ms-20">Loading...</p>
+        <p className="mt-16 ms-20">Loading...</p>
       </>
     );
   }
@@ -62,12 +62,12 @@ const User = () => {
             <div className="flex  mr-8">Address</div>
           </div>
 
-          {userData?.map((user, index) => {
+          {userData?.map((user) => {
             return (
               <>
                 <div
                   className="flex flex-wrap flex-row justify-between w-[82vw] text-sm  px-2 py-3 "
-                  key={index}
+                  key={user.id}
                 >
                   <div className="flex flex-wrap px-2  mt-8 w-36 border border-transparent text-center justify-center   mt-8">
                     {user.name}
@@ -95,13 +95,34 @@ const User = () => {
               </>
             );
           })}
-          <div className="flex border border-black justify-betweeen">
-            <button onClick={handlePrevPage} className={`flex ${startIndex==0 ?"hidden":"visible"}`}>
-              Prev
-            </button>
-            <button onClick={()=>handleNextpage(user.id)} className={`flex ${endIndex === userId ? "hidden" : "visible"} `}>
-              Next
-            </button>
+          <div className="flex border border-transparent   justify-center mr-8 mb-4">
+            <div
+              className={`flex border border-transparent  bg-slate-300   rounded-lg justify-center mr-8 mb-4 `}
+            >
+              <button
+                disabled={currentPage == 1}
+                onClick={handlePrevPage}
+                className="p-1"
+              >
+                {" "}
+                Prev
+              </button>
+            </div>
+            {}
+            
+            <div
+              className={`flex border border-transparent ms-8 rounded-lg bg-slate-300 mb-4  "} `}
+            >
+              <button
+                onClick={() => handleNextpage(user.id)}
+                disabled={
+                 currentPage == totalPages 
+                }
+                className={` p-1`}
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>
