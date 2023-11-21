@@ -14,7 +14,7 @@ function App() {
         <Router>
           <div className="flex ">
             <Sidebar />
-            <div className="  flex   flex-col lg:ms-[12.4vw]  xl:ms-[12.6vw] 2xl:ms-[12.5vw] border border-transparent sm:ms-[4vw] sm:mr-2 ">
+            <div className="  flex   flex-col  lg:ms-[12.4vw]  xl:ms-[12.6vw] 2xl:ms-[12.5vw] border border-transparent sm:ms-[4vw] sm:mr-2 ">
               <Nav />
 
               <Routes>

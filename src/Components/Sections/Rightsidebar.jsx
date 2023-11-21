@@ -24,10 +24,10 @@ const Rightsidebar = () => {
   };
   return (
     <>
-      <div className="flex border border-transparent lg:w-[17vw] md:w-full md:justify-around">
-        <div className="flex lg:flex-col  md:w-full   lg:w-full mx-2 mt-4 md:justify-between">
+      <div className="flex border border-transparent lg:w-[17vw] md:w-full md:justify-around sm:w-full sm:justify-around ">
+        <div className="flex lg:flex-col lg:w-full mx-2 mt-4 md:w-full md:justify-between  sm:w-full sm:justify-between">
           {/* First Box */}
-          <div className="flex items-center border-transparent border-transparent-black lg:flex-col md:flex-col bg-[#219AA2] text-white  rounded-xl lg:w-full md:w-[34vw] md:h-52 ">
+          <div className="flex items-center border-transparent border-transparent-black lg:flex-col md:flex-col bg-[#219AA2] text-white  rounded-xl lg:w-full md:w-[34vw] md:h-52 sm:w-[40vw] sm:h-52 sm:flex-col sm:ms-4">
             <p className="text-lg mt-4 ms-4">Upgrade to Pro</p>
             <p className="text-2xl ms-4 mt-6">
               $4.20 /<span className="text-sm">Month</span>
@@ -40,7 +40,7 @@ const Rightsidebar = () => {
           </div>
 
           {/* Second Box */}
-          <div className="flex flex-col bg-white lg:mt-8 lg:me-8  md:mt-4 md:me-4 rounded-xl md:border-transparent  lg:w-[15vw] md:w-[30vw] md:h-52 md:mt-0 md:ms-4">
+          <div className="flex flex-col bg-white lg:mt-8 lg:me-8  md:mt-4 md:me-4 rounded-xl md:border-transparent  lg:w-[15vw] md:w-[30vw] md:h-52 md:mt-0 md:ms-4   sm:w-[40vw] sm:h-52 sm:mt-0 sm:-ms-4">
             <div className=" flex flex-col space-x-4 mt-4">
               <div className="flex">
                 <div className="border-transparent border-transparent-transparent rounded-full ms-4 flex items-center bg-[#B9ABFF] p-1">
@@ -90,30 +90,30 @@ const Rightsidebar = () => {
           </div>
 
           {/* Third BOx */}
-          <div className="flex bg-white lg:mt-4 lg:mb-2 lg:me-4 rounded-xl lg:w-full md:w-[35vw] md:ms-0 md:me-2 md:h-fit border-transparent border-transparent-black">
+          <div className="flex bg-white lg:mt-4 lg:mb-2 lg:me-4 rounded-xl lg:w-full md:w-[35vw] md:ms-0 md:me-2 sm:w-[35vw] sm:ms-0 sm:me-2 md:h-fit border-transparent border-transparent-black">
             <div className="flex flex-col lg:mt-4 md:mt-2">
-              <p className="text-lg font-bold lg:ms-4 lg:mb-4 md:ms-2 md:mb-2 font-roboto">
+              <p className="text-lg font-bold lg:ms-4 lg:mb-4 md:ms-2 md:mb-2 sm:ms-4 sm:mb-2 sm:mt-2 font-roboto">
                 Team Member
               </p>
               {list.map((item, index) => {
                 return (
-                  <div className="flex justify-between lg:my-2 md:my-1" key={index}>
+                  <div className="flex justify-between lg:my-2 md:my-1 sm:my-1" key={index}>
                     <div className="flex ">
                       <img
                         src={item.src}
                         alt=""
-                        className="lg:h-6 md:h-5 rounded-full lg:mt-2 md:mt-2 w-7.5 lg:ms-7 md:ms-5"
+                        className=" w-7.5 lg:h-6 lg:ms-7  rounded-full lg:mt-2 md:h-5 md:mt-2  md:ms-5 sm:h-5 sm:mt-2 sm:ms-4"
                       />
                     </div>
                     <div className="flex flex-col ">
-                      <div className="flex lg:ms-4 md:ms-0">{item.name}</div>
-                      <div className="flex text-xs  lg:ms-4 md:ms-0 text-slate-400">
+                      <div className="flex lg:ms-4 md:ms-0 sm:ms-1">{item.name}</div>
+                      <div className="flex text-xs  lg:ms-4 md:ms-0  sm:ms-1 text-slate-400">
                         {item.title}
                       </div>
                     </div>
 
                     {/* <div>{item.id}</div> */}
-                    <div className="flex lg:ms-6 md:me-4 items-center justify-center self-center">
+                    <div className="flex lg:ms-6 md:me-4 sm:me-2 items-center justify-center self-center">
                       <Link to={`/userdetails/${item.id}`}>
                         <MdKeyboardArrowRight />
                       </Link>
@@ -123,7 +123,7 @@ const Rightsidebar = () => {
               })}
 
               <button
-                className="border-transparent rounded-2xl text-sm border-transparent-transparent lg:ms-4 md:ms-2 lg:my-2 md:my-2  lg:px-9 md:px-8 lg:py-1.5 md:py-1.5 bg-blue-100 flex space-x-2"
+                className="border-transparent rounded-2xl text-sm border-transparent-transparent lg:ms-4 lg:my-2 lg:py-1.5  lg:px-9 md:px-8 md:ms-2 md:my-2  md:py-1.5  sm:px-8 sm:ms-2 sm:my-2  sm:py-1.5 bg-blue-100 flex space-x-2"
                 onClick={openModal}
               >
                 <div className="px-0.5 bg-white border-transparent rounded-full border-transparent-transparent ">
