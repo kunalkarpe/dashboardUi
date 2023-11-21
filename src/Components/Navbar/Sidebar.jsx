@@ -53,14 +53,24 @@ const Sidebar = () => {
 
   // For CLoseing and opening sidebar
   const [toggle, setToggle] = useState(false);
-  const handleToogle = () => {
+const handleMouseEnter =()=>{
+  setToggle(true)
+  console.log("enters")
+}
+
+const handleMouseLeave = ()=>{
+  setToggle(false)
+  console.log("leaves")
+}
+
+  // const handleToogle = () => {
      
-    if (!toggle) {
-      setToggle(true);
-    } else {
-      setToggle(false);
-    }
-  };
+  //   if (!toggle) {
+  //     setToggle(true);
+  //   } else {
+  //     setToggle(false);
+  //   }
+  // };
 
   // For Drag and drop
   const handleDragStart = (e, id) => {
@@ -170,7 +180,8 @@ const Sidebar = () => {
                           } lg:w-[14vw] `}
                         >
                           <div className="flex ">
-                            <span onClick={() => handleToogle()}>
+                            <span onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}>
                               
                                 <div className="mt-2 ms-2  sm:ms-1   hover:rotate-180 transition duration-500 ease-in-out  ">
                                   {items.icon}
