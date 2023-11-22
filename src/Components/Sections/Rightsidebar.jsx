@@ -1,33 +1,63 @@
- import { useState } from "react";
+import { useState } from "react";
 import { AiTwotoneVideoCamera } from "react-icons/ai";
-
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { IoIosAdd } from "react-icons/io";
-import { useSelector } from "react-redux";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Modal from "../../Helpers/Modal";
 import boy1 from "../../assets/boy1.avif";
 import boy2 from "../../assets/boy2.jpg";
 import boy3 from "../../assets/boy3.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { addToList } from "../../Redux/Slice"; 
 
-const Rightsidebar = () => {
+
+const fetchData = async () => {
+   
+  const res = await fetch("https://gorest.co.in/public/v2/users?page=1&per_page=4", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization":
+        "Bearer 220b6e43e8696b05af547f479f4f2727fb0a688d1bd1c4add2ea9c9ee31f1126",
+    },
+  });
+  const response = await res.json();
+  // console.log(response, "is res");
+   
+  return response;
+};
+
+const Rightsidebar = () => { 
+  const dispatch = useDispatch()
+  const {  data: response } = useQuery({
+    queryKey: ["memberkey"],
+    queryFn: fetchData,
+  });
+  console.log(response, "is new res");
+  if(response){
+    dispatch(addToList(response))
+  }
+   
+  const {list} = useSelector((state)=>state.allList)
+  console.log(list)
+
+
   const [show, setShow] = useState(false);
   const closeModal = () => {
     setShow(false);
   };
-  const { list } = useSelector((state) => state.allList);
-  // console.log(list ,"is list")
-
   const openModal = () => {
     console.log("hii");
     setShow(true);
   };
+ 
   return (
     <>
-      <div className="flex border border-transparent lg:w-[17vw] md:w-full md:justify-around sm:w-full sm:justify-around ">
+      <div className="flex border border-transparent lg:w-[17vw]  md:w-full md:justify-around sm:w-full sm:justify-around ">
         <div className="flex lg:flex-col lg:w-full mx-2 mt-4 md:w-full md:justify-between  sm:w-full sm:justify-between">
           {/* First Box */}
-          <div className="flex items-center border-transparent border-transparent-black lg:flex-col md:flex-col bg-[#219AA2] text-white  rounded-xl lg:w-full md:w-[34vw] md:h-52 sm:w-[40vw] sm:h-52 sm:flex-col sm:ms-4">
+          <div className="flex items-center border-transparent border-transparent-black lg:flex-col md:flex-col bg-[#219AA2] text-white  rounded-xl lg:w-[16vw] md:w-[34vw] md:h-52 sm:w-[40vw] sm:h-52 sm:flex-col sm:ms-4">
             <p className="text-lg mt-4 ms-4">Upgrade to Pro</p>
             <p className="text-2xl ms-4 mt-6">
               $4.20 /<span className="text-sm">Month</span>
@@ -90,37 +120,62 @@ const Rightsidebar = () => {
           </div>
 
           {/* Third BOx */}
-          <div className="flex bg-white lg:mt-4 lg:mb-2 lg:me-4 rounded-xl lg:w-full md:w-[35vw] md:ms-0 md:me-2 sm:w-[35vw] sm:ms-0 sm:me-2 md:h-fit border-transparent border-transparent-black">
-            <div className="flex flex-col lg:mt-4 md:mt-2">
+          <div className="flex bg-white lg:mt-4 lg:mb-2 lg:ms-3 rounded-xl lg:w-[16.5vw] md:w-[35vw] md:ms-0 md:me-2 sm:w-[35vw] sm:ms-0 sm:me-2 md:h-fit border border-transparent">
+            <div className="flex flex-col lg:mt-4 md:mt-2 ">
               <p className="text-lg font-bold lg:ms-4 lg:mb-4 md:ms-2 md:mb-2 sm:ms-4 sm:mb-2 sm:mt-2 font-roboto">
                 Team Member
               </p>
-              {list.map((item, index) => {
+              
+              {  response?.map((data, index) => {
                 return (
-                  <div className="flex justify-between lg:my-2 md:my-1 sm:my-1" key={index}>
-                    <div className="flex ">
-                      <img
-                        src={item.src}
-                        alt=""
-                        className=" w-7.5 lg:h-6 lg:ms-7  rounded-full lg:mt-2 md:h-5 md:mt-2  md:ms-5 sm:h-5 sm:mt-2 sm:ms-4"
-                      />
+                  <>
+                    <div
+                      className="flex justify-around w-[16.5vw] lg:my-2 md:my-1 sm:my-1  border border-transparent rounded-2xl shadow-lg"
+                      key={index}
+                    >
+                      <div className="flex flex-col p-2 w-[15vw]">
+                        <div className="flex lg:ms-4 md:ms-0 sm:ms-1 text-sm">
+                          {data.name}
+                        </div>
+                        <div className="flex text-xs  lg:ms-4 md:ms-0  sm:ms-1 text-slate-400 text-ellipsis overflow-hidden">
+                          {data.email}
+                        </div>
+                      </div>
+                      <div className="flex lg:ms-2 md:me-4 sm:me-2 items-center justify-center self-center">
+                      <Link to={`/userdetails/${data.id}`}>
+                        <MdKeyboardArrowRight />
+                      </Link>
                     </div>
+                    </div>
+                  </>
+                );
+              })}
+              {/* {response.map((item) => {
+                return (
+                  <div
+                    className="flex justify-between w-[17vw] lg:my-2 md:my-1 sm:my-1  border border-black"
+                    key={item.id}
+                  >
+                    
+                     
                     <div className="flex flex-col ">
-                      <div className="flex lg:ms-4 md:ms-0 sm:ms-1">{item.name}</div>
+                      <div className="flex lg:ms-4 md:ms-0 sm:ms-1 text-sm">
+                        {item.name}
+                      </div>
                       <div className="flex text-xs  lg:ms-4 md:ms-0  sm:ms-1 text-slate-400">
-                        {item.title}
+                        {item.email}
                       </div>
                     </div>
 
-                    {/* <div>{item.id}</div> */}
-                    <div className="flex lg:ms-6 md:me-4 sm:me-2 items-center justify-center self-center">
+                   
+                    <div className="flex lg:ms-2 md:me-4 sm:me-2 items-center justify-center self-center">
                       <Link to={`/userdetails/${item.id}`}>
                         <MdKeyboardArrowRight />
                       </Link>
                     </div>
                   </div>
                 );
-              })}
+              })} */}
 
               <button
                 className="border-transparent rounded-2xl text-sm border-transparent-transparent lg:ms-4 lg:my-2 lg:py-1.5  lg:px-9 md:px-8 md:ms-2 md:my-2  md:py-1.5  sm:px-8 sm:ms-2 sm:my-2  sm:py-1.5 bg-blue-100 flex space-x-2"

@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
-import data from "../Components/Data"; 
+// import data from "../Components/Data"; 
 const initialState = {
-  list: data,
+  list: [ ],
 };
 
 const listSlice = createSlice({
