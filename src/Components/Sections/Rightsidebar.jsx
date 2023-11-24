@@ -1,57 +1,75 @@
 import { useState } from "react";
 import { AiTwotoneVideoCamera } from "react-icons/ai";
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Link, useParams } from "react-router-dom";
 import { IoIosAdd } from "react-icons/io";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
+import { FaPen } from "react-icons/fa";
 import Modal from "../../Helpers/Modal";
 import boy1 from "../../assets/boy1.avif";
 import boy2 from "../../assets/boy2.jpg";
 import boy3 from "../../assets/boy3.jpg";
-import { useDispatch, useSelector } from "react-redux";
-import { addToList } from "../../Redux/Slice"; 
+// import { useDispatch } from "react-redux";
+// import { addToList } from "../../Redux/Slice";
 
+import { fetchById, fetchMembers } from "../../Api/api";
+import { deleteMembers } from "../../Api/api";
+const Rightsidebar = () => {
+  const { id } = useParams();
+  const [show, setShow] = useState(false);
+  const [fetchData,setfetchData]=useState("")
+  const queryClient = useQueryClient();
+  const {
+    isLoading,
+    isError,
+    data: response,
+  } = useQuery({
+    queryKey: ["listkey"],
+    queryFn: fetchMembers,
+  });
 
-const fetchData = async () => {
-   
-  const res = await fetch("https://gorest.co.in/public/v2/users?page=1&per_page=4", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization":
-        "Bearer 220b6e43e8696b05af547f479f4f2727fb0a688d1bd1c4add2ea9c9ee31f1126",
+  console.log(response, "is fetching members");
+  const deleteMemberMutation = useMutation({
+    mutationFn: deleteMembers,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["listkey"] });
+    },
+    onError: (error) => {
+      console.log(error);
     },
   });
-  const response = await res.json();
-  // console.log(response, "is res");
-   
-  return response;
-};
+  const handleUpdate = async (data) => {
+    openModal();
 
-const Rightsidebar = () => { 
-  const dispatch = useDispatch()
-  const {  data: response } = useQuery({
-    queryKey: ["memberkey"],
-    queryFn: fetchData,
-  });
-  console.log(response, "is new res");
-  if(response){
-    dispatch(addToList(response))
-  }
-   
-  const {list} = useSelector((state)=>state.allList)
-  console.log(list)
+    const res = await fetchById(data.id);
+    console.log(res, "is modal res");
+    const datas = {
+      id:data.id,
+      name:data.name,
+      email:data.email,
+      gender:data.gender,
+      status:data.status
+    }
+    setfetchData(datas)
+  }; 
+  const handleDelete = (id) => {
+    deleteMemberMutation.mutate(id);
+  };
+  if (isLoading) return "Loading";
+  if (isError) return "Error";
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks, no-unused-vars
 
-  const [show, setShow] = useState(false);
+  // const dispatch = useDispatch();
+
   const closeModal = () => {
     setShow(false);
   };
   const openModal = () => {
-    console.log("hii");
     setShow(true);
   };
- 
+
   return (
     <>
       <div className="flex border border-transparent lg:w-[17vw]  md:w-full md:justify-around sm:w-full sm:justify-around ">
@@ -125,58 +143,44 @@ const Rightsidebar = () => {
               <p className="text-lg font-bold lg:ms-4 lg:mb-4 md:ms-2 md:mb-2 sm:ms-4 sm:mb-2 sm:mt-2 font-roboto">
                 Team Member
               </p>
-              
-              {  response?.map((data, index) => {
+
+              {response.map((data) => {
                 return (
                   <>
                     <div
                       className="flex justify-around w-[16.5vw] lg:my-2 md:my-1 sm:my-1  border border-transparent rounded-2xl shadow-lg"
-                      key={index}
+                      key={data.id}
                     >
                       <div className="flex flex-col p-2 w-[15vw]">
-                        <div className="flex lg:ms-4 md:ms-0 sm:ms-1 text-sm">
+                        <button className="flex lg:ms-4 md:ms-0 sm:ms-1 text-sm">
                           {data.name}
-                        </div>
+                        </button>
                         <div className="flex text-xs  lg:ms-4 md:ms-0  sm:ms-1 text-slate-400 text-ellipsis overflow-hidden">
                           {data.email}
                         </div>
                       </div>
-                      <div className="flex lg:ms-2 md:me-4 sm:me-2 items-center justify-center self-center">
-                      <Link to={`/userdetails/${data.id}`}>
-                        <MdKeyboardArrowRight />
-                      </Link>
-                    </div>
+                      <div className="flex lg:ms-0 cursor-pointer md:me-4 sm:me-2 items-center justify-center self-center">
+                        <button
+                          className="cursor-pointer  "
+                          onClick={() => handleUpdate(data)}
+                        >
+                          <FaPen />
+                        </button>
+                        <button
+                          className="cursor-pointer  "
+                          onClick={() => handleDelete(data.id)}
+                        >
+                          <MdDeleteForever />
+                        </button>
+
+                        <Link to={`/userdetails/${data.id}`}>
+                          <MdKeyboardArrowRight />
+                        </Link>
+                      </div>
                     </div>
                   </>
                 );
               })}
-              {/* {response.map((item) => {
-                return (
-                  <div
-                    className="flex justify-between w-[17vw] lg:my-2 md:my-1 sm:my-1  border border-black"
-                    key={item.id}
-                  >
-                    
-                     
-                    <div className="flex flex-col ">
-                      <div className="flex lg:ms-4 md:ms-0 sm:ms-1 text-sm">
-                        {item.name}
-                      </div>
-                      <div className="flex text-xs  lg:ms-4 md:ms-0  sm:ms-1 text-slate-400">
-                        {item.email}
-                      </div>
-                    </div>
-
-                   
-                    <div className="flex lg:ms-2 md:me-4 sm:me-2 items-center justify-center self-center">
-                      <Link to={`/userdetails/${item.id}`}>
-                        <MdKeyboardArrowRight />
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })} */}
-
               <button
                 className="border-transparent rounded-2xl text-sm border-transparent-transparent lg:ms-4 lg:my-2 lg:py-1.5  lg:px-9 md:px-8 md:ms-2 md:my-2  md:py-1.5  sm:px-8 sm:ms-2 sm:my-2  sm:py-1.5 bg-blue-100 flex space-x-2"
                 onClick={openModal}
@@ -186,7 +190,8 @@ const Rightsidebar = () => {
                 </div>
                 <div> Add More members</div>
               </button>
-              {show && <Modal close={closeModal} />}
+              {show && <Modal close={closeModal} fetcheddata={fetchData} />}
+              {console.log(fetchData, "is response")}
             </div>
           </div>
         </div>

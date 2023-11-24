@@ -38,7 +38,7 @@ const Sidebar = () => {
     },
     {
       id: 5,
-      name: "Sell Reports",
+      name: "Reports",
       icon: <TbReport />,
       path: "/",
     },
