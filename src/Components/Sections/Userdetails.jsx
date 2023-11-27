@@ -7,29 +7,57 @@ import { IoIosAdd } from "react-icons/io";
 import Modal from "../../Helpers/Modal";
 import { Combobox,   Transition } from "@headlessui/react";
 import { LuChevronsUpDown } from "react-icons/lu"; 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient,useMutation } from "@tanstack/react-query";
 import { fetchById,fetchMembers } from "../../Api/api"; 
+import { FaPen } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
+import { deleteMembers } from "../../Api/api";
+import EditModal from "../../Helpers/EditModal";
  
 
 const Userdetails = () => {
   const [query, setQuery] = useState("");
   const [show, setShow] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const[passData,setPassData] = useState({})
   const { id } = useParams();
-  console.log(id, "is id");
-
-  const {  data: allmembers,} = useQuery({
+  // console.log(id, "is id");
+  const queryClient = useQueryClient ()
+  
+  const {   data: allmembers} = useQuery({
     queryKey: ["listkey"],
     queryFn: fetchMembers,
-  });
+  }); 
   const {isLoading,isError, data : list} =useQuery({
     queryKey:["listkey",id],
     queryFn:()=>fetchById(id),
   })
-  const [selected, setSelected] = useState(allmembers[0]);
+  const [selected, setSelected] = useState( allmembers[0]);
+
+  const deleteMemberMutation = useMutation({
+    mutationFn: deleteMembers,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["listkey"] });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+  const handleUpdate =   (data ) => {
+    setEdit(true);
+    setPassData(data)
+  };
+  const handleDelete=(id)=>{
+    deleteMemberMutation.mutate(id)
+  }
+  
+  const closeEdit = () => {
+    setEdit(false);
+  };
 if (isLoading) return "Loading";
 if (isError) return "Error";
 
-console.log(list,"is single data ;ist")
+// console.log(list,"is single data ;ist")
 
   // const list  = useSelector((state) => state.allList.list);
   // console.log(list ,"is userdetails listt");
@@ -62,6 +90,7 @@ console.log(list,"is single data ;ist")
         }); 
   
   // console.log(filteredPeople, "is filtered people");
+  
   return (
     <>
       <div className="flex border border-transparent  mt-20 p-2">
@@ -79,6 +108,9 @@ console.log(list,"is single data ;ist")
                   </div>
                   <div className="text-lg font-semibold mt-5 ms-8 ">
                     Email : {list.email}
+                  </div>
+                  <div className="text-lg font-semibold mt-5 ms-8 ">
+                    Gender : {list.gender}
                   </div>
                   <div className="mt-5 ms-9 flex flex-col">
                     <span className="text-md font-semibold flex">
@@ -187,12 +219,27 @@ console.log(list,"is single data ;ist")
                         <>
                           <div className=" flex justify-around  border border-transparent rounded-2xl m-2 shadow-lg bg-zinc-200 p-2">
                              
-                            <div className="flex flex-col border border-transparent ">
+                            <div className="flex flex-col border border-transparent w-[16vw] ">
                               <p className="flex  ">{user.name}</p>
-                              <p className="flex   text-sm text-slate-500  ">
+                              <p className="flex   text-sm text-slate-500 break-words w-[4vw] ">
                                 {user.email}
                               </p>
+                              <p className="flex   text-sm text-slate-500  ">
+                                {user.gender}
+                              </p>
                             </div>
+                              <button
+                          className="cursor-pointer   ms-4"
+                          onClick={() => handleUpdate(user )}
+                        >
+                          <FaPen  />
+                        </button>
+                        <button
+                          className="cursor-pointer  "
+                          onClick={() => handleDelete(user.id)}
+                        >
+                          <MdDeleteForever />
+                        </button>
                             <div className="flex  items-center justify-center self-center">
                               <Link to={`/userdetails/${user.id}`}>
                                 <MdKeyboardArrowRight />
@@ -213,6 +260,7 @@ console.log(list,"is single data ;ist")
                       <div className="flex"> Add More members</div>
                     </button>
                     {show && <Modal close={closeModal} />}
+                    {edit && <EditModal closed={closeEdit}  data={passData}  />}
                   </div>
               </div>
             </div>

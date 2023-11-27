@@ -1,24 +1,26 @@
 import { useState } from "react";
 import { AiTwotoneVideoCamera } from "react-icons/ai";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IoIosAdd } from "react-icons/io";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import { FaPen } from "react-icons/fa";
 import Modal from "../../Helpers/Modal";
+import EditModal from "../../Helpers/EditModal";
 import boy1 from "../../assets/boy1.avif";
 import boy2 from "../../assets/boy2.jpg";
-import boy3 from "../../assets/boy3.jpg";
+import boy3 from "../../assets/boy3.jpg"; 
 // import { useDispatch } from "react-redux";
 // import { addToList } from "../../Redux/Slice";
 
-import { fetchById, fetchMembers } from "../../Api/api";
+import {  fetchMembers } from "../../Api/api";
 import { deleteMembers } from "../../Api/api";
-const Rightsidebar = () => {
-  const { id } = useParams();
+const Rightsidebar = () => { 
   const [show, setShow] = useState(false);
-  const [fetchData,setfetchData]=useState("")
+  const [edit, setEdit] = useState(false);
+  const [passData,setPassdata] =useState({})
+  // const [fetchData,setfetchData]=useState("")
   const queryClient = useQueryClient();
   const {
     isLoading,
@@ -29,7 +31,6 @@ const Rightsidebar = () => {
     queryFn: fetchMembers,
   });
 
-  console.log(response, "is fetching members");
   const deleteMemberMutation = useMutation({
     mutationFn: deleteMembers,
     onSuccess: () => {
@@ -39,20 +40,11 @@ const Rightsidebar = () => {
       console.log(error);
     },
   });
-  const handleUpdate = async (data) => {
-    openModal();
+  
+  if(isLoading)return "loading..." 
+  // console.log(response, "is fetching members");
 
-    const res = await fetchById(data.id);
-    console.log(res, "is modal res");
-    const datas = {
-      id:data.id,
-      name:data.name,
-      email:data.email,
-      gender:data.gender,
-      status:data.status
-    }
-    setfetchData(datas)
-  }; 
+
   const handleDelete = (id) => {
     deleteMemberMutation.mutate(id);
   };
@@ -68,6 +60,14 @@ const Rightsidebar = () => {
   };
   const openModal = () => {
     setShow(true);
+  };
+  const handleUpdate =   (data) => {
+    setEdit(true);
+    setPassdata(data)
+  };
+
+  const closeEdit = () => {
+    setEdit(false);
   };
 
   return (
@@ -159,12 +159,12 @@ const Rightsidebar = () => {
                           {data.email}
                         </div>
                       </div>
-                      <div className="flex lg:ms-0 cursor-pointer md:me-4 sm:me-2 items-center justify-center self-center">
+                      <div className="flex lg:-ms-2 cursor-pointer md:me-4 sm:me-2 items-center justify-center self-center h-[2vh ]">
                         <button
-                          className="cursor-pointer  "
+                          className="cursor-pointer   "
                           onClick={() => handleUpdate(data)}
                         >
-                          <FaPen />
+                          <FaPen className="h-[1.5vh] w-[1.5vw] "/>
                         </button>
                         <button
                           className="cursor-pointer  "
@@ -190,8 +190,8 @@ const Rightsidebar = () => {
                 </div>
                 <div> Add More members</div>
               </button>
-              {show && <Modal close={closeModal} fetcheddata={fetchData} />}
-              {console.log(fetchData, "is response")}
+              {show && <Modal close={closeModal} />}
+              {edit && <EditModal closed={closeEdit} data={passData}  />}
             </div>
           </div>
         </div>

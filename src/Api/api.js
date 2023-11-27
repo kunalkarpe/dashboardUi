@@ -45,7 +45,7 @@ export async function createMembers (value) {
 }
 
 export async function updateMembers (updatedMember) {
-  const result = await fetch (  `https://gorest.co.in/public/v2/users${updatedMember.id}`,
+  const result = await fetch (  `https://gorest.co.in/public/v2/users/${updatedMember.id}`,
   {
     method: "PUT",
     headers: {
