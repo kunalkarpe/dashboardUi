@@ -8,7 +8,7 @@ import { IoMdSettings } from "react-icons/io";
 import { BiLogIn } from "react-icons/bi";
 import girl from "../../assets/girl.avif";
 import { useState } from "react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const sidebarData = [
@@ -53,18 +53,18 @@ const Sidebar = () => {
 
   // For CLoseing and opening sidebar
   const [toggle, setToggle] = useState(false);
-const handleMouseEnter =()=>{
-  setToggle(true)
-  console.log("enters")
-}
+  const handleMouseEnter = () => {
+    setToggle(true);
+    console.log("enters");
+  };
 
-const handleMouseLeave = ()=>{
-  setToggle(false)
-  console.log("leaves")
-}
+  const handleMouseLeave = () => {
+    setToggle(false);
+    console.log("leaves");
+  };
 
   // const handleToogle = () => {
-     
+
   //   if (!toggle) {
   //     setToggle(true);
   //   } else {
@@ -116,17 +116,14 @@ const handleMouseLeave = ()=>{
     }
   };
 
- 
   return (
     <>
       <div className=" flex lg:top-0 lg:left-0 lg:h-[100vh] lg:fixed  sm:top-0 sm:left-0 sm:fixed xs:h-screen xs:top-0 xs:left-0 xs:fixed z-40 ">
         <div
           className={`flex border border-transparent  h-[108vh] top-0 left-0 relative fixed bg-white shadow-lg sm:h-[140vh] bg-white  lg:w-[15vw]   md:${
             !toggle ? " w-[4vw]" : " w-[20vw]"
-          } sm:${
-            !toggle ? " w-[5vw]" : " w-[22vw]"
-          } `}
-        > 
+          } sm:${!toggle ? " w-[5vw]" : " w-[22vw]"} `}
+        >
           <aside
             className={`lg:w-[15vw]    md:${
               !toggle ? " w-[4vw]" : " w-[120vw]"
@@ -143,9 +140,7 @@ const handleMouseLeave = ()=>{
                 <p
                   className={`text-lg mt-2 font-bold ms-4   md:${
                     !toggle ? "hidden" : "visible"
-                  }  sm:${
-                    !toggle ? "hidden" : "visible"
-                  } lg:block     `}
+                  }  sm:${!toggle ? "hidden" : "visible"} lg:block     `}
                 >
                   {" "}
                   Niond{" "}
@@ -156,9 +151,7 @@ const handleMouseLeave = ()=>{
             <div
               className={`mt-6 ms-2 sm:ms-0 flex sm:flex-col md:flex-col border border-transparent bg-white lg:w-[13vw]  md:${
                 !toggle ? " w-[3vw]" : " w-[18vw]"
-              } sm:${
-                !toggle ? " w-[4.5vw]" : " w-[18vw]"
-              }  `}
+              } sm:${!toggle ? " w-[4.5vw]" : " w-[18vw]"}  `}
             >
               {barData.map((items) => {
                 return (
@@ -180,19 +173,18 @@ const handleMouseLeave = ()=>{
                           } lg:w-[14vw] `}
                         >
                           <div className="flex ">
-                            <span onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}>
-                              
-                                <div className="mt-2 ms-2  sm:ms-1   hover:rotate-180 transition duration-500 ease-in-out  ">
-                                  {items.icon}
-                                </div> 
+                            <span
+                              onMouseEnter={handleMouseEnter}
+                              onMouseLeave={handleMouseLeave}
+                            >
+                              <div className="mt-2 ms-2  sm:ms-1   hover:rotate-180 transition duration-500 ease-in-out  ">
+                                {items.icon}
+                              </div>
                             </span>
                             <span
                               className={`text-md font-semibold ms-4  lg:block  md:${
                                 !toggle ? "hidden" : "visible"
-                              } sm:${
-                                !toggle ? "hidden" : "visible"
-                              }  `}
+                              } sm:${!toggle ? "hidden" : "visible"}  `}
                             >
                               {items.name}
                             </span>
