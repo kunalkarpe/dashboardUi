@@ -6,33 +6,31 @@ import { updateMembers } from "../Api/api";
 import { useQueryClient } from "@tanstack/react-query";
 
 const EditModal = ({ closed, data }) => {
-    const queryClient = useQueryClient();
-  console.log(data);
-  
+  const queryClient = useQueryClient();
   // eslint-disable-next-line react/prop-types
-  const { name, email, gender, status,id } = data;
+  const { name, email, gender, status, id } = data;
   const [value, setValue] = useState({
-    id:id,
+    id: id,
     name: name,
     email: email,
     gender: gender,
     status: status,
   });
-   
+
   const updateMutation = useMutation({
-    mutationFn : updateMembers,
+    mutationFn: updateMembers,
     onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["listkey"] });
-      },
-  })
+      queryClient.invalidateQueries({ queryKey: ["listkey"] });
+    },
+  });
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (value,id) => {
-    updateMutation.mutate({id  ,...value})
-    console.log(value)
-   closed();
- };
+  const handleSubmit = (value, id) => {
+    updateMutation.mutate({ id, ...value });
+    console.log(value);
+    closed();
+  };
   return (
     <>
       <div className="fixed -top-8 bottom-0 left-0 right-0 bg-slate-200 bg-opacity-90 z-50">
@@ -48,7 +46,11 @@ const EditModal = ({ closed, data }) => {
               <GrFormClose />
             </button>{" "}
             <div className="-top-20">
-              <form action="" method="post" onSubmit={()=>handleSubmit(value,value.id)}>
+              <form
+                action=""
+                method="post"
+                onSubmit={() => handleSubmit(value, value.id)}
+              >
                 <div className="grid grid-cols-10 py-2">
                   <div className="col-span-8 mx-12 px-2 ">
                     <input

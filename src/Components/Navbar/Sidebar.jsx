@@ -9,8 +9,10 @@ import { BiLogIn } from "react-icons/bi";
 import girl from "../../assets/girl.avif";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useFetchUser from "../CustomHooks/fetchData";
 
 const Sidebar = () => {
+  const { cacheData } = useFetchUser();
   const sidebarData = [
     {
       id: 1,
@@ -50,72 +52,40 @@ const Sidebar = () => {
     },
   ];
   const [barData, setBarData] = useState(sidebarData);
-
-  // For CLoseing and opening sidebar
   const [toggle, setToggle] = useState(false);
   const handleMouseEnter = () => {
     setToggle(true);
-    console.log("enters");
   };
 
   const handleMouseLeave = () => {
     setToggle(false);
-    console.log("leaves");
   };
-
-  // const handleToogle = () => {
-
-  //   if (!toggle) {
-  //     setToggle(true);
-  //   } else {
-  //     setToggle(false);
-  //   }
-  // };
-
-  // For Drag and drop
   const handleDragStart = (e, id) => {
     e.dataTransfer.setData("id", id);
-    console.log(id, "is drag start id");
   };
   const dragOver = (e) => {
     e.preventDefault();
-    console.log("Dragged over");
   };
 
   const handleDrop = (e, droppedItemId) => {
     const draggedId = e.dataTransfer.getData("id");
-    console.log(draggedId, "is dragged id");
-
-    // we are getting full object in item
     const item = barData.find((item) => item.id == draggedId);
-    console.log(item, "is item which is filter from bardata = draggedid");
 
     if (!item) {
       return;
     }
-
-    // New array is form without the id we have selected
     const updatedItem = barData.filter((item) => item.id != draggedId);
-    console.log(updatedItem, "is bardata.id != dragged id");
-
-    // geting the index where we want to place the div
     const targetedIndex = updatedItem.findIndex(
       (item) => item.id === droppedItemId
     );
-    console.log(targetedIndex, "is target index");
-
-    // Using splice method for changing the position
     if (targetedIndex != 0) {
       updatedItem.splice(targetedIndex + 1, 0, item);
       setBarData(updatedItem);
-      console.log(updatedItem, "is new bardata");
     } else {
       updatedItem.splice(targetedIndex, 0, item);
       setBarData(updatedItem);
-      console.log(updatedItem, "is new bardata");
     }
   };
-
   return (
     <>
       <div className=" flex lg:top-0 lg:left-0 lg:h-[100vh] lg:fixed  sm:top-0 sm:left-0 sm:fixed xs:h-screen xs:top-0 xs:left-0 xs:fixed z-40 ">
@@ -131,7 +101,6 @@ const Sidebar = () => {
               !toggle ? "w-[5vw]" : " w-[120vw]"
             }  xs:w-[4vw]       md:flex-col border border-transparent   h-[140vh]`}
           >
-            {" "}
             <Link to="/">
               <div className="flex  mt-2">
                 <span>
@@ -147,7 +116,6 @@ const Sidebar = () => {
                 </p>
               </div>
             </Link>
-            {/* For Buutons  */}
             <div
               className={`mt-6 ms-2 sm:ms-0 flex sm:flex-col md:flex-col border border-transparent bg-white lg:w-[13vw]  md:${
                 !toggle ? " w-[3vw]" : " w-[18vw]"
@@ -196,8 +164,6 @@ const Sidebar = () => {
                 );
               })}
             </div>
-            {/* Buttons emds */}
-            {/* For girl */}
             <div className="flex flex-col mt-20   lg:block md:hidden xs:hidden sm:hidden">
               <div className="container flex justify-center">
                 <img
@@ -207,11 +173,11 @@ const Sidebar = () => {
                 />
               </div>
               <div className="container justify-center flex ">
-                <p className="font-semibold text-lg  mt-4">Nora Watson</p>
+                <p className="font-semibold text-lg  mt-4">{cacheData.name}</p>
               </div>
               <div className="container justify-center flex">
                 <p className="font-semibold text-sm text-slate-500  ">
-                  Sales Manger
+                  {cacheData.email}
                 </p>
               </div>
               <div className="container flex justify-center mt-8">
@@ -225,5 +191,4 @@ const Sidebar = () => {
     </>
   );
 };
-
 export default Sidebar;

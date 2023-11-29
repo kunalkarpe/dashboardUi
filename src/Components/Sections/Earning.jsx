@@ -20,7 +20,6 @@ const Earning = () => {
       title: "+6.04 Greater than Last ",
     },
   ];
-
   return (
     <>
       <div className="flex  shrink    px-4 ">

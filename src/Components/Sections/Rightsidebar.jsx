@@ -10,17 +10,13 @@ import Modal from "../../Helpers/Modal";
 import EditModal from "../../Helpers/EditModal";
 import boy1 from "../../assets/boy1.avif";
 import boy2 from "../../assets/boy2.jpg";
-import boy3 from "../../assets/boy3.jpg"; 
-// import { useDispatch } from "react-redux";
-// import { addToList } from "../../Redux/Slice";
-
-import {  fetchMembers } from "../../Api/api";
+import boy3 from "../../assets/boy3.jpg";
+import { fetchMembers } from "../../Api/api";
 import { deleteMembers } from "../../Api/api";
-const Rightsidebar = () => { 
+const Rightsidebar = () => {
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [passData,setPassdata] =useState({})
-  // const [fetchData,setfetchData]=useState("")
+  const [passData, setPassdata] = useState({});
   const queryClient = useQueryClient();
   const {
     isLoading,
@@ -40,30 +36,23 @@ const Rightsidebar = () => {
       console.log(error);
     },
   });
-  
-  if(isLoading)return "loading..." 
-  // console.log(response, "is fetching members");
 
+  if (isLoading) return "loading...";
 
   const handleDelete = (id) => {
     deleteMemberMutation.mutate(id);
   };
   if (isLoading) return "Loading";
   if (isError) return "Error";
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks, no-unused-vars
-
-  // const dispatch = useDispatch();
-
   const closeModal = () => {
     setShow(false);
   };
   const openModal = () => {
     setShow(true);
   };
-  const handleUpdate =   (data) => {
+  const handleUpdate = (data) => {
     setEdit(true);
-    setPassdata(data)
+    setPassdata(data);
   };
 
   const closeEdit = () => {
@@ -74,7 +63,6 @@ const Rightsidebar = () => {
     <>
       <div className="flex border border-transparent lg:w-[17vw]  md:w-full md:justify-around sm:w-full sm:justify-around ">
         <div className="flex lg:flex-col lg:w-full mx-2 mt-4 md:w-full md:justify-between  sm:w-full sm:justify-between">
-          {/* First Box */}
           <div className="flex items-center border-transparent border-transparent-black lg:flex-col md:flex-col bg-[#219AA2] text-white  rounded-xl lg:w-[16vw] md:w-[34vw] md:h-52 sm:w-[40vw] sm:h-52 sm:flex-col sm:ms-4">
             <p className="text-lg mt-4 ms-4">Upgrade to Pro</p>
             <p className="text-2xl ms-4 mt-6">
@@ -86,8 +74,6 @@ const Rightsidebar = () => {
               Upgrade Now
             </button>
           </div>
-
-          {/* Second Box */}
           <div className="flex flex-col bg-white lg:mt-8 lg:me-8  md:mt-4 md:me-4 rounded-xl md:border-transparent  lg:w-[15vw] md:w-[30vw] md:h-52 md:mt-0 md:ms-4   sm:w-[40vw] sm:h-52 sm:mt-0 sm:-ms-4">
             <div className=" flex flex-col space-x-4 mt-4">
               <div className="flex">
@@ -136,8 +122,6 @@ const Rightsidebar = () => {
               </button>
             </div>
           </div>
-
-          {/* Third BOx */}
           <div className="flex bg-white lg:mt-4 lg:mb-2 lg:ms-3 rounded-xl lg:w-[16.5vw] md:w-[35vw] md:ms-0 md:me-2 sm:w-[35vw] sm:ms-0 sm:me-2 md:h-fit border border-transparent">
             <div className="flex flex-col lg:mt-4 md:mt-2 ">
               <p className="text-lg font-bold lg:ms-4 lg:mb-4 md:ms-2 md:mb-2 sm:ms-4 sm:mb-2 sm:mt-2 font-roboto">
@@ -164,7 +148,7 @@ const Rightsidebar = () => {
                           className="cursor-pointer   "
                           onClick={() => handleUpdate(data)}
                         >
-                          <FaPen className="h-[1.5vh] w-[1.5vw] "/>
+                          <FaPen className="h-[1.5vh] w-[1.5vw] " />
                         </button>
                         <button
                           className="cursor-pointer  "
@@ -173,7 +157,7 @@ const Rightsidebar = () => {
                           <MdDeleteForever />
                         </button>
 
-                        <Link to={`/userdetails/${data.id}`}>
+                        <Link to={`/singleuserdetails/${data.id}`}>
                           <MdKeyboardArrowRight />
                         </Link>
                       </div>
@@ -191,7 +175,7 @@ const Rightsidebar = () => {
                 <div> Add More members</div>
               </button>
               {show && <Modal close={closeModal} />}
-              {edit && <EditModal closed={closeEdit} data={passData}  />}
+              {edit && <EditModal closed={closeEdit} data={passData} />}
             </div>
           </div>
         </div>
@@ -199,5 +183,4 @@ const Rightsidebar = () => {
     </>
   );
 };
-
 export default Rightsidebar;

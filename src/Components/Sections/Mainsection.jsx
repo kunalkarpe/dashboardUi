@@ -2,11 +2,8 @@ import Earning from "./Earning";
 import Regularsale from "./Regularsale";
 import Topstore from "./Topstore";
 import Rightsidebar from "./Rightsidebar";
-import Sidebar from "../Navbar/Sidebar";
 import Nav from "../Navbar/Nav";
-import { Route, Routes } from "react-router-dom";
-import Userdetails from "./Userdetails";
-import User from "./User";
+import Sidebar from "../Navbar/Sidebar";
 
 const Mainsection = () => {
   return (
@@ -29,12 +26,6 @@ const Mainsection = () => {
           <Rightsidebar />
         </div>
       </div>
-      {/* <Userdetails />
-      <User /> */}
-      <Routes>
-        <Route path="/userdetails/:id" element={<Userdetails />} />
-        <Route path="/user" element={<User />} />
-      </Routes>
     </>
   );
 };

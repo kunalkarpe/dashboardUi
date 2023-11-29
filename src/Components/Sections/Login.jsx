@@ -27,7 +27,6 @@ const Login = () => {
         const result = await response.json();
         console.log(result.token);
         localStorage.setItem("token", result.token);
-
         navigate("/");
       } else {
         console.log("some error occured");
@@ -48,14 +47,14 @@ const Login = () => {
 
   return (
     <>
-      <div className=" w-[80vw] h-[85vh] mt-20 ms-12 border border-transparent bg-white rounded-lg">
+      <div className=" w-[80vw] h-[85vh] mt-20 -ms-12 border border-transparent bg-white rounded-lg">
         <div className="flex border border-transparent  items-center justify-center rounded-lg p-2">
           <h2 className="text-lg font-bold px-2 py-1 border-b-4 font-roboto">
             Login
           </h2>
         </div>
         <div className="flex">
-          <div className="flex flex-col mt-4 ms-4 border border-transparent  w-[40vw] justify-center items-center h-[50vh] ">
+          <div className="flex flex-col mt-4 ms-4 border border-slate-200 shadow-lg rounded-2xl  w-[40vw] justify-center items-center h-[50vh] ">
             <label htmlFor="Email ">
               Email:{" "}
               <input

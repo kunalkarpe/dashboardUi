@@ -67,9 +67,5 @@ export async function deleteMembers(id) {
         "Bearer 220b6e43e8696b05af547f479f4f2727fb0a688d1bd1c4add2ea9c9ee31f1126",
     },
   });
-  // const result = await response.json();
   return response;
 }
-
- 
- 

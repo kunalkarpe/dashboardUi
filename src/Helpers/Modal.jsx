@@ -1,16 +1,14 @@
 import { GrFormClose } from "react-icons/gr";
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query"; 
-// import { useDispatch } from "react-redux";
-import { createMembers } from "../Api/api"; 
-// import { addToList } from "../Redux/Slice";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createMembers } from "../Api/api";
 // eslint-disable-next-line react/prop-types
-const Modal = ({ close  }) => { 
+const Modal = ({ close }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [status, setStatus] = useState("");
-   
+
   const queryClient = useQueryClient();
   const createMutation = useMutation({
     mutationFn: createMembers,
@@ -18,15 +16,12 @@ const Modal = ({ close  }) => {
       queryClient.invalidateQueries({ queryKey: ["listkey"] });
     },
   });
-  
-  // const dispatch = useDispatch();
   const data = {
     name: name,
     email: email,
     gender: gender,
     status: status,
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,7 +52,7 @@ const Modal = ({ close  }) => {
                       type="text"
                       placeholder="Enter your Name "
                       className="border border-slate-300 rounded-lg ps-2 h-10 w-56"
-                      onChange={(e) => setName(  e.target.value)}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -146,4 +141,3 @@ const Modal = ({ close  }) => {
 };
 
 export default Modal;
- 

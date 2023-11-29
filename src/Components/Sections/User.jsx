@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react"; 
-
+import { useState } from "react";
+import Sidebar from "../Navbar/Sidebar";
+import Nav from "../Navbar/Nav";
 const fetchUser = async () => {
   const user = await axios
     .get("https://jsonplaceholder.typicode.com/users")
     .then((res) => res.data);
   return user;
 };
-
 const User = () => {
   const {
     isLoading,
@@ -24,14 +24,12 @@ const User = () => {
   const itemsPerPage = 5;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
- const totalPages = Math.ceil((user?.length / itemsPerPage))
-  // console.log(totalPages)
+  const totalPages = Math.ceil(user?.length / itemsPerPage);
   const userData = user?.slice(startIndex, endIndex);
 
   const handleNextpage = (id) => {
     setUserId(id);
     setCurrentPage(currentPage + 1);
-    // console.log(user.id,"is user id")
   };
   const handlePrevPage = () => {
     setCurrentPage(currentPage - 1);
@@ -50,6 +48,8 @@ const User = () => {
 
   return (
     <>
+      <Nav />
+      <Sidebar />
       <div className="mt-16 ms-10 border border-tansparent shadow-xl text-sm bg-white">
         <div className="relative">
           <div className="flex flex-row bg-slate-300  border-b-2 w-[82vw] justify-between  px-2 py-2 fixed m  ">
@@ -109,15 +109,13 @@ const User = () => {
               </button>
             </div>
             {}
-            
+
             <div
               className={`flex border border-transparent ms-8 rounded-lg bg-slate-300 mb-4  "} `}
             >
               <button
                 onClick={() => handleNextpage(user.id)}
-                disabled={
-                 currentPage == totalPages 
-                }
+                disabled={currentPage == totalPages}
                 className={` p-1`}
               >
                 Next
