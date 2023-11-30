@@ -50,9 +50,9 @@ const Nav = () => {
               className="lg:w-14 lg:h-12 xl:w-14 xl:h-12 2xl:w-14 2xl:h-12 sm:h-8 sm:w-8  md:h-8 md:w-8 rounded-full"
             />
             <div className="flex flex-col">
-              <span className=" lg:ms-3 xl:ms-3 2xl:ms-3 sm:ms-2 sm:text-sm md:ms-2 md:text-sm sm:text-sm">
+              <p className=" lg:ms-3 xl:ms-3 2xl:ms-3 sm:ms-2 sm:text-sm md:ms-2 md:text-sm sm:text-sm">
                 {service?.data?.name}
-              </span>
+              </p>
               <p className="lg:text-sm lg:ms-3 xl:text-sm xl:ms-3 2xl:text-sm 2xl:ms-3  sm:text-sm  sm:ms-2  sm:text-sm md:text-sm  md:ms-2 text-slate-500">
                 {service?.data?.email}
               </p>

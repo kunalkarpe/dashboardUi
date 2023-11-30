@@ -103,9 +103,9 @@ const Sidebar = () => {
           >
             <Link to="/">
               <div className="flex  mt-2">
-                <span>
+                <p>
                   <BiLogoDeviantart className="mt-3 ms-3 sm:ms-1 xs:ms-1 " />
-                </span>
+                </p>
                 <p
                   className={`text-lg mt-2 font-bold ms-4   md:${
                     !toggle ? "hidden" : "visible"
@@ -141,21 +141,21 @@ const Sidebar = () => {
                           } lg:w-[14vw] `}
                         >
                           <div className="flex ">
-                            <span
+                            <p
                               onMouseEnter={handleMouseEnter}
                               onMouseLeave={handleMouseLeave}
                             >
                               <div className="mt-2 ms-2  sm:ms-1   hover:rotate-180 transition duration-500 ease-in-out  ">
                                 {items.icon}
                               </div>
-                            </span>
-                            <span
+                            </p>
+                            <p
                               className={`text-md font-semibold ms-4  lg:block  md:${
                                 !toggle ? "hidden" : "visible"
                               } sm:${!toggle ? "hidden" : "visible"}  `}
                             >
                               {items.name}
-                            </span>
+                            </p>
                           </div>
                         </button>
                       </Link>
