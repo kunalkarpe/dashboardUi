@@ -1,7 +1,7 @@
 import Earning from "./Earning";
 import Regularsale from "./Regularsale";
 import Topstore from "./Topstore";
-import Rightsidebar from "./Rightsidebar";
+import Rightsidebar from "./RightSideBar/Rightsidebar";
 import Nav from "../Navbar/Nav";
 import Sidebar from "../Navbar/Sidebar";
 

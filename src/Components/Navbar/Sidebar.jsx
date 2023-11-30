@@ -5,7 +5,6 @@ import { BiStats } from "react-icons/bi";
 import { TbReport } from "react-icons/tb";
 import { RiTeamFill } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
-import { BiLogIn } from "react-icons/bi";
 import girl from "../../assets/girl.avif";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -181,10 +180,6 @@ const Sidebar = () => {
                 <p className="font-semibold text-sm text-slate-500  ">
                   {service?.data?.email}
                 </p>
-              </div>
-              <div className="container flex justify-center mt-8">
-                <BiLogIn className="mt-2" />
-                <p className="text-sm mt-2 ms-2 "> Log Out </p>
               </div>
             </div>
           </aside>

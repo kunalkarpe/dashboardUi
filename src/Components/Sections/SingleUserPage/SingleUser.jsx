@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 
-import { fetchById } from "../../Api/api";
+import { fetchById } from "../../../Api/api";
 const SearchSingleUser = () => {
   const { id } = useParams();
   const { data: list } = useQuery({
     queryKey: ["listkey", id],
     queryFn: () => fetchById(id),
   });
+
   return (
     <>
       <div className="flex border border-transparent  mt-20 p-2">

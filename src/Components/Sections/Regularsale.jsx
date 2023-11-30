@@ -3,7 +3,6 @@ import { MdOutlineSegment } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { SiAndroidstudio } from "react-icons/si";
 import { GiAndroidMask } from "react-icons/gi";
-
 const Regularsale = () => {
   return (
     <>

@@ -3,7 +3,6 @@ import loginImage from "../../assets/login.jpg";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
 const Login = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -26,7 +25,7 @@ const Login = () => {
       );
       return response;
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
   const loginMutation = useMutation({

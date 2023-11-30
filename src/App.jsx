@@ -1,13 +1,11 @@
 import "./App.css";
 import.meta.env;
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Sidebar from "./Components/Navbar/Sidebar";
-// import Nav from "./Components/Navbar/Nav";
 import Mainsection from "./Components/Sections/Mainsection";
-import Userdetails from "./Components/Sections/Userdetails";
-import User from "./Components/Sections/User";
+import User from "./Components/Sections/JSONplaceholderUser";
 import ProtectedRoute from "./Helpers/ProtectedRoute";
 import Login from "./Components/Sections/Login";
+import Userdetails from "./Components/Sections/SingleUserPage/Userdetails";
 
 function App() {
   return (

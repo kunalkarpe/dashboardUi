@@ -28,7 +28,6 @@ const EditModal = ({ closed, data }) => {
   };
   const handleSubmit = (value, id) => {
     updateMutation.mutate({ id, ...value });
-    console.log(value);
     closed();
   };
   return (
