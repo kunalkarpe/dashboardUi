@@ -14,7 +14,6 @@ const Userdetails = () => {
           <div className="bg-white px-4 border border-transparent rounded-2xl shadow-2xl ms-20">
             <div className="relative   w-[28vw] border border-transparent  rounded-2xl mt-4 ">
               <SearchUser />
-
               <AllUserList />
             </div>
           </div>

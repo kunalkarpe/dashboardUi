@@ -6,7 +6,6 @@ import Modal from "../../../Helpers/Modal";
 import { Link, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-
 import { fetchMembers, deleteMembers } from "../../../Api/api";
 const AllUserList = () => {
   const [show, setShow] = useState(false);

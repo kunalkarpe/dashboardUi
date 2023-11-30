@@ -104,7 +104,6 @@ const User = () => {
                 onClick={handlePrevPage}
                 className="p-1"
               >
-                {" "}
                 Prev
               </button>
             </div>

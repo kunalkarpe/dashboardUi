@@ -19,7 +19,8 @@ const Nav = () => {
       navigate("/login");
     },
   });
-  const handleLogOut = () => {
+  const handleLogOut = (e) => {
+    e.preventDefault();
     logoutMutation.mutate();
   };
 
@@ -59,11 +60,11 @@ const Nav = () => {
             </div>
           </div>
           <button
-            className="flex justify-center items-center border border-slate-300 cursor:pointer rounded-lg px-2 bg-white"
+            className="flex flex-col justify-center items-center border border-slate-300 cursor:pointer rounded-lg px-2 bg-white"
             onClick={handleLogOut}
           >
             <RiUserShared2Fill />
-            <p>Logout</p>
+            <p className="text-sm">Logout</p>
           </button>
         </div>
       </div>

@@ -8,7 +8,6 @@ import { fetchMembers } from "../../../Api/api";
 const SearchUser = () => {
   const [query, setQuery] = useState("");
   const { id } = useParams();
-  // const queryClient = useQueryClient();
   const [selected, setSelected] = useState("");
   const {
     data: allmembers,
