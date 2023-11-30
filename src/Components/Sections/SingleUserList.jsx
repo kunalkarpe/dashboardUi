@@ -27,7 +27,7 @@ const SearchSingleUser = () => {
                 Gender : {list?.gender}
               </div>
               <div className="mt-5 ms-9 flex flex-col">
-                <span className="text-md font-semibold flex">Descripton :</span>
+                <p className="text-md font-semibold flex">Descripton :</p>
                 <p className="mt-2 text-md font-roboto flex">
                   {list?.name} is a been working as a for last 2 years
                 </p>

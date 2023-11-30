@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     if (service.isLoading) return () => {};
-    if (service.status === "error") {
+    if (service.status == "error") {
       navigate("/login");
     } else {
       navigate("/");

@@ -17,9 +17,7 @@ const Regularsale = () => {
                     Regular Sale
                   </p>{" "}
                   <button className=" flex border border-transparent bg-lime-300  lg:px-8 md:px-4  lg:w-12  lg:h-6 rounded-lg items-center flex justify-center lg:text-sm sm:text-sm sm:px-4">
-                    <span className="lg:text-md md:text-sm sm:text-sm">
-                      Export
-                    </span>
+                    <p className="lg:text-md md:text-sm sm:text-sm">Export</p>
                   </button>
                 </div>
                 <img
@@ -43,9 +41,9 @@ const Regularsale = () => {
 
               <div className="flex flex-col  lg:mt-6 lg:ms-1  md:ms-1 md:mt-4 sm:ms-3 sm:mt-4">
                 <div className="flex  border border-transparent lg:m-2 lg:px-2 lg:py-2 md:m-2 md:px-2 md:py-2 sm:m-2 sm:px-2 sm:py-2 rounded-xl bg-white">
-                  <span className="flex   ">
+                  <p className="flex   ">
                     <MdOutlineSegment className="md:ms-2 sm:ms-2 rotate-90 " />
-                  </span>
+                  </p>
                   <p className="flex     text-start font-bold text-sm lg:ms-6 md:ms-4 sm:ms-4">
                     Store Sale ratio
                   </p>
@@ -54,9 +52,9 @@ const Regularsale = () => {
                   </div>
                 </div>
                 <div className="flex  border border-transparent lg:m-2 lg:px-2 lg:py-2  md:m-2 md:px-2 md:py-2 sm:m-2 sm:px-2 sm:py-2  rounded-xl bg-white">
-                  <span className="flex   sm:ms-2   md:ms-2 items-center   ">
+                  <p className="flex   sm:ms-2   md:ms-2 items-center   ">
                     <SiAndroidstudio />
-                  </span>
+                  </p>
                   <p className="flex     text-start font-bold text-sm lg:ms-6 md:ms-6  sm:ms-4">
                     Top Item Sold
                   </p>

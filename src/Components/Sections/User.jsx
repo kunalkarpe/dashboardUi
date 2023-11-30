@@ -108,8 +108,6 @@ const User = () => {
                 Prev
               </button>
             </div>
-            {}
-
             <div
               className={`flex border border-transparent ms-8 rounded-lg bg-slate-300 mb-4  "} `}
             >
