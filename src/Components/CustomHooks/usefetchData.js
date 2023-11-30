@@ -23,6 +23,7 @@ function useFetchUser() {
     queryKey: ["user"],
     queryFn: fetchData,
   });
+
   const cacheData = queryClient.getQueryData(["user"]);
   return { service, cacheData };
 }

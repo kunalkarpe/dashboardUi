@@ -1,20 +1,25 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useFetchUser from "../Components/CustomHooks/fetchData.js";
+import useFetchUser from "../Components/CustomHooks/usefetchData.js";
+
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
   const { service } = useFetchUser();
 
   useEffect(() => {
+    if (service.isLoading) return () => {};
     if (service.status == "error") {
       navigate("/login");
     } else {
       navigate("/");
     }
-  }, [service.status]);
-
+  }, [service.status, service.isLoading]);
   if (service.isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <>
+        <p>Loading....</p>
+      </>
+    );
   }
 
   return <>{children}</>;

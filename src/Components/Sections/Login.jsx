@@ -1,6 +1,8 @@
 import { useState } from "react";
 import loginImage from "../../assets/login.jpg";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 // import { useMutation, useQueryClient } from "@tanstack/react-query";
 const Login = () => {
   const navigate = useNavigate();
@@ -12,29 +14,30 @@ const Login = () => {
 
   const loginMembers = async (value) => {
     try {
-      const response = await fetch(
+      const response = await axios.post(
         " https://uatapicorporatetravel.fynity.in/api/login",
+        value,
         {
-          method: "POST",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: JSON.stringify(value),
         }
       );
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result.token);
-        localStorage.setItem("token", result.token);
-        navigate("/");
-      } else {
-        console.log("some error occured");
-      }
+      return response;
     } catch (error) {
       console.log(error);
     }
   };
+  const loginMutation = useMutation({
+    mutationFn: (value) => {
+      return loginMembers(value);
+    },
+    onSuccess: (data) => {
+      localStorage.setItem("token", data.data.token);
+      navigate("/");
+    },
+  });
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -42,7 +45,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    loginMembers(data);
+    loginMutation.mutate(data);
   };
 
   return (

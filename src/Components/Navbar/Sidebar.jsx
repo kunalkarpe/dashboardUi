@@ -9,10 +9,10 @@ import { BiLogIn } from "react-icons/bi";
 import girl from "../../assets/girl.avif";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import useFetchUser from "../CustomHooks/fetchData";
+import useFetchUser from "../CustomHooks/usefetchData";
 
 const Sidebar = () => {
-  const { cacheData } = useFetchUser();
+  const { service } = useFetchUser();
   const sidebarData = [
     {
       id: 1,
@@ -173,11 +173,13 @@ const Sidebar = () => {
                 />
               </div>
               <div className="container justify-center flex ">
-                <p className="font-semibold text-lg  mt-4">{cacheData.name}</p>
+                <p className="font-semibold text-lg  mt-4">
+                  {service?.data?.name}
+                </p>
               </div>
               <div className="container justify-center flex">
                 <p className="font-semibold text-sm text-slate-500  ">
-                  {cacheData.email}
+                  {service?.data?.email}
                 </p>
               </div>
               <div className="container flex justify-center mt-8">

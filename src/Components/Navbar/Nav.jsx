@@ -3,14 +3,24 @@ import { FaRegBell } from "react-icons/fa";
 import girl from "../../assets/girl.avif";
 import { RiUserShared2Fill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import useFetchUser from "../CustomHooks/fetchData.js";
+import useFetchUser from "../CustomHooks/usefetchData.js";
+import useLogout from "../CustomHooks/uselogoutUser.js";
+import { useMutation } from "@tanstack/react-query";
 
 const Nav = () => {
+  const { fetchData } = useLogout();
   const navigate = useNavigate();
-  const { cacheData } = useFetchUser();
+  const { service } = useFetchUser();
+
+  const logoutMutation = useMutation({
+    mutationFn: fetchData,
+    onSuccess: () => {
+      localStorage.removeItem("token");
+      navigate("/login");
+    },
+  });
   const handleLogOut = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+    logoutMutation.mutate();
   };
 
   return (
@@ -41,10 +51,10 @@ const Nav = () => {
             />
             <div className="flex flex-col">
               <span className=" lg:ms-3 xl:ms-3 2xl:ms-3 sm:ms-2 sm:text-sm md:ms-2 md:text-sm sm:text-sm">
-                {cacheData?.name}
+                {service?.data?.name}
               </span>
               <p className="lg:text-sm lg:ms-3 xl:text-sm xl:ms-3 2xl:text-sm 2xl:ms-3  sm:text-sm  sm:ms-2  sm:text-sm md:text-sm  md:ms-2 text-slate-500">
-                {cacheData?.email}
+                {service?.data?.email}
               </p>
             </div>
           </div>

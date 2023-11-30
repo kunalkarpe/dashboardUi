@@ -128,12 +128,12 @@ const Rightsidebar = () => {
                 Team Member
               </p>
 
-              {response.map((data) => {
+              {response.map((data, index) => {
                 return (
                   <>
                     <div
                       className="flex justify-around w-[16.5vw] lg:my-2 md:my-1 sm:my-1  border border-transparent rounded-2xl shadow-lg"
-                      key={data.id}
+                      key={index}
                     >
                       <div className="flex flex-col p-2 w-[15vw]">
                         <button className="flex lg:ms-4 md:ms-0 sm:ms-1 text-sm">
