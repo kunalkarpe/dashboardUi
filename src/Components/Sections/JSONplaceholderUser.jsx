@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import Sidebar from "../Navbar/Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 import Nav from "../Navbar/Nav";
 const fetchUser = async () => {
   const user = await axios
@@ -50,7 +50,7 @@ const User = () => {
     <>
       <Nav />
       <Sidebar />
-      <div className="mt-16 ms-10 border border-tansparent shadow-xl text-sm bg-white">
+      <section className="mt-16 ms-10 border border-tansparent shadow-xl text-sm bg-white">
         <div className="relative">
           <div className="flex flex-row bg-slate-300  border-b-2 w-[82vw] justify-between  px-2 py-2 fixed m  ">
             <div className="flex ms-6">Name</div>
@@ -120,7 +120,7 @@ const User = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

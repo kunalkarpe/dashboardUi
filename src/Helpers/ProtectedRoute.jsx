@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useFetchUser from "../Components/CustomHooks/usefetchData.js";
+import useFetchUser from "../CustomHooks/usefetchData.js";
 
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();

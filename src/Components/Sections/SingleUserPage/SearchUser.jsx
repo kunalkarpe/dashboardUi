@@ -39,7 +39,7 @@ const SearchUser = () => {
         });
   return (
     <>
-      <div className="relative   w-[28vw] border border-transparent  rounded-2xl mt-4 ">
+      <section className="relative   w-[28vw] border border-transparent  rounded-2xl mt-4 ">
         <Combobox
           value={selected}
           onChange={(e) => {
@@ -121,7 +121,7 @@ const SearchUser = () => {
             </Transition>
           </div>
         </Combobox>
-      </div>
+      </section>
     </>
   );
 };

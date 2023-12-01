@@ -1,4 +1,4 @@
-import Sidebar from "../../Navbar/Sidebar";
+import Sidebar from "../../Sidebar/Sidebar";
 import Nav from "../../Navbar/Nav";
 import SingleUserDeatils from "./SingleUser";
 import AllUserList from "./AllUserList";

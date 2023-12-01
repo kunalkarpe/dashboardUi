@@ -6,7 +6,7 @@ import { GiAndroidMask } from "react-icons/gi";
 const Regularsale = () => {
   return (
     <>
-      <div className="flex justify-center  lg:mt-8 lg:ms-8 md:mt-8 md:mx-4 sm:mt-8 sm:mx-2 border border-transparent sm:w-full md:w-full">
+      <section className="flex justify-center  lg:mt-8 lg:ms-8 md:mt-8 md:mx-4 sm:mt-8 sm:mx-2 border border-transparent sm:w-full md:w-full">
         <div className="flex justify-around  ">
           <div className="flex border border-transparent p-2 sm:-ms-18">
             <div className="container border border-transparent sm:w-[85vw] md:w-[70vw]  lg:w-[40vw] ">
@@ -73,7 +73,7 @@ const Regularsale = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

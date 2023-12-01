@@ -6,7 +6,7 @@ import Teammembers from "./Teammembers";
 const Rightsidebar = () => {
   return (
     <>
-      <div className="flex border border-transparent lg:w-[17vw]  md:w-full md:justify-around sm:w-full sm:justify-around ">
+      <section className="flex border border-transparent lg:w-[17vw]  md:w-full md:justify-around sm:w-full sm:justify-around ">
         <div className="flex lg:flex-col lg:w-full mx-2 mt-4 md:w-full md:justify-between  sm:w-full sm:justify-between">
           <div className="flex items-center border-transparent border-transparent-black lg:flex-col md:flex-col bg-[#219AA2] text-white  rounded-xl lg:w-[16vw] md:w-[34vw] md:h-52 sm:w-[40vw] sm:h-52 sm:flex-col sm:ms-4">
             <p className="text-lg mt-4 ms-4">Upgrade to Pro</p>
@@ -70,7 +70,7 @@ const Rightsidebar = () => {
 
           <Teammembers />
         </div>
-      </div>
+      </section>
     </>
   );
 };

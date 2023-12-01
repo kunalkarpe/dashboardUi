@@ -11,7 +11,7 @@ const SearchSingleUser = () => {
 
   return (
     <>
-      <div className="flex border border-transparent  mt-20 p-2">
+      <section className="flex border border-transparent  mt-20 p-2">
         <div className="flex justify-between border border-transparent w-full">
           <div className="flex border border-transparent px-8 py-2">
             <div
@@ -36,7 +36,7 @@ const SearchSingleUser = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

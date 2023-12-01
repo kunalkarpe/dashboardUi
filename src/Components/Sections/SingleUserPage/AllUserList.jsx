@@ -52,7 +52,7 @@ const AllUserList = () => {
   if (isError) return "Error";
   return (
     <>
-      <div className="container mt-5 border border-transparent px-1 flex flex-col">
+      <section className="container mt-5 border border-transparent px-1 flex flex-col">
         {userList?.map((user) => {
           return (
             <>
@@ -98,7 +98,7 @@ const AllUserList = () => {
         </button>
         {show && <Modal close={closeModal} />}
         {edit && <EditModal closed={closeEdit} data={passData} />}
-      </div>
+      </section>
     </>
   );
 };

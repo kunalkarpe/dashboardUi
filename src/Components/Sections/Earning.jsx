@@ -22,7 +22,7 @@ const Earning = () => {
   ];
   return (
     <>
-      <div className="flex  shrink    px-4 ">
+      <section className="flex  shrink    px-4 ">
         {data.map((item, index) => {
           return (
             <Card
@@ -34,7 +34,7 @@ const Earning = () => {
             />
           );
         })}
-      </div>
+      </section>
     </>
   );
 };

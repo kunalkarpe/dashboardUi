@@ -1,7 +1,7 @@
 const Topstore = () => {
   return (
     <>
-      <div className="flex border border-transparent lg:w-full md:w-full">
+      <section className="flex border border-transparent lg:w-full md:w-full">
         <div className=" lg:ms-12 2xl:ms-8 md:mx-2 lg:mt-8    lg:mb-4   lg:pb-4 md:mt-4  md:mb-4 md:pb-2 sm:mt-4 sm:ms-6  sm:mb-4 sm:px-2 lg:pt-4 bg-white rounded-2xl border border-transparent shadow-lg w-full">
           <div className="flex justify-between">
             <div className="flex lg:ms-6 md:ms-4 lg:pb-2 md:pb:1 sm:ms-2 sm:mt-2 text-xl font-bold ">
@@ -87,7 +87,7 @@ const Topstore = () => {
             </p>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

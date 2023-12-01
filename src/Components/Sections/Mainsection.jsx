@@ -3,29 +3,29 @@ import Regularsale from "./Regularsale";
 import Topstore from "./Topstore";
 import Rightsidebar from "./RightSideBar/Rightsidebar";
 import Nav from "../Navbar/Nav";
-import Sidebar from "../Navbar/Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Mainsection = () => {
   return (
     <>
       <Nav />
       <Sidebar />
-      <div className="flex  lg:flex-row xl:flex-row 2xl:flex-row md:flex-col sm:flex-col lg:h-full xl:h-full 2xl:h-ful lg:mt-12 xl:mt-12 2xl:mt-12  ">
+      <main className="flex  lg:flex-row xl:flex-row 2xl:flex-row md:flex-col sm:flex-col lg:h-full xl:h-full 2xl:h-ful lg:mt-12 xl:mt-12 2xl:mt-12  ">
         <div className="flex justify-center flex-col border border-transparent  lg:w-[67.5vw] h-full  ">
-          <div className="flex px-4 justify-around sm:mt-16 md:mt-16 lg:mt-2 xl:mt-2 2xl:mt-2  border border-transparent">
+          <section className="flex px-4 justify-around sm:mt-16 md:mt-16 lg:mt-2 xl:mt-2 2xl:mt-2  border border-transparent">
             <Earning />
-          </div>
+          </section>
           <div className="flex">
             <Regularsale />
           </div>
-          <div className="flex">
+          <section className="flex">
             <Topstore />
-          </div>
+          </section>
         </div>
-        <div className="flex border border-transparent lg:ms-2 lg:mt-2 md:mx-2 border border-transparent">
+        <section className="flex border border-transparent lg:ms-2 lg:mt-2 md:mx-2 border border-transparent">
           <Rightsidebar />
-        </div>
-      </div>
+        </section>
+      </main>
     </>
   );
 };

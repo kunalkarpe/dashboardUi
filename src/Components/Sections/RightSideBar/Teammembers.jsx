@@ -22,7 +22,6 @@ const Teammembers = () => {
     queryKey: ["listkey"],
     queryFn: fetchMembers,
   });
-
   const deleteMemberMutation = useMutation({
     mutationFn: deleteMembers,
     onSuccess: () => {
@@ -56,7 +55,7 @@ const Teammembers = () => {
   };
   return (
     <>
-      <div className="flex bg-white lg:mt-4 lg:mb-2 lg:ms-3 rounded-xl lg:w-[16.5vw] md:w-[35vw] md:ms-0 md:me-2 sm:w-[35vw] sm:ms-0 sm:me-2 md:h-fit border border-transparent">
+      <section className="flex bg-white lg:mt-4 lg:mb-2 lg:ms-3 rounded-xl lg:w-[16.5vw] md:w-[35vw] md:ms-0 md:me-2 sm:w-[35vw] sm:ms-0 sm:me-2 md:h-fit border border-transparent">
         <div className="flex flex-col lg:mt-4 md:mt-2 ">
           <p className="text-lg font-bold lg:ms-4 lg:mb-4 md:ms-2 md:mb-2 sm:ms-4 sm:mb-2 sm:mt-2 font-roboto">
             Team Member
@@ -109,7 +108,7 @@ const Teammembers = () => {
           {show && <Modal close={closeModal} />}
           {edit && <EditModal closed={closeEdit} data={passData} />}
         </div>
-      </div>
+      </section>
     </>
   );
 };
