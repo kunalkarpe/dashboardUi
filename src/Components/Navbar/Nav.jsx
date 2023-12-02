@@ -3,8 +3,8 @@ import { FaRegBell } from "react-icons/fa";
 import girl from "../../assets/girl.avif";
 import { RiUserShared2Fill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import useFetchUser from "../../CustomHooks/usefetchData.js";
-import useLogout from "../../CustomHooks/uselogoutUser.js";
+import useFetchUser from "../../CustomHooksLogin/usefetchData.js";
+import useLogout from "../../CustomHooksLogin/uselogoutUser.js";
 import { useMutation } from "@tanstack/react-query";
 
 const Nav = () => {

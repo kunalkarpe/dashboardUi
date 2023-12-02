@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 function useFetchUser() {
   const token = localStorage.getItem("token");
   const queryClient = useQueryClient();
