@@ -2,7 +2,7 @@ import { AiTwotoneVideoCamera } from "react-icons/ai";
 import boy1 from "../../../assets/boy1.avif";
 import boy2 from "../../../assets/boy2.jpg";
 import boy3 from "../../../assets/boy3.jpg";
-import Teammembers from "./Teammembers";
+import TeamMembers from "./Teammembers";
 const Rightsidebar = () => {
   return (
     <>
@@ -67,8 +67,7 @@ const Rightsidebar = () => {
               </button>
             </div>
           </div>
-
-          <Teammembers />
+          <TeamMembers />
         </div>
       </section>
     </>

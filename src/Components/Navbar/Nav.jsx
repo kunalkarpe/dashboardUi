@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useFetchUser from "../../CustomHooksLogin/usefetchData.js";
 import useLogout from "../../CustomHooksLogin/uselogoutUser.js";
 import { useMutation } from "@tanstack/react-query";
+import SearchBar from "./Searchbar/index.jsx";
 
 const Nav = () => {
   const { fetchData } = useLogout();
@@ -34,6 +35,9 @@ const Nav = () => {
           <p className="lg:text-md xl:text-md 2xl:text-md sm:text-sm  text-slate-700 md:ms-4">
             14th Aug
           </p>
+        </div>
+        <div>
+          <SearchBar />
         </div>
         <div className="flex justify-around me-8">
           <div className="flex me-6">
