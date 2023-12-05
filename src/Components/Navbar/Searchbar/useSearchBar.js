@@ -4,22 +4,26 @@ import data from "./searchBar.constants";
 
 export default function useSearchBar() {
   const navigate = useNavigate();
+  const [selected, setSelected] = useState();
   const [query, setQuery] = useState("");
-  const [showDropdown, setShowDropdown] = useState(false);
-  const inputRef = useRef("null");
-  const handleQuery = (e) => {
-    setQuery(e.target.value);
-    setShowDropdown(!false);
-  };
+  const inputRef = useRef(" ");
+
+  const dropdownList =
+    query === ""
+      ? data
+      : data.filter((person) =>
+          person.name
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.toLowerCase().replace(/\s+/g, ""))
+        );
 
   const handleSearch = () => {
-    const value = data.filter((data) => data.name.toLocaleLowerCase() == query);
+    const value = data.filter(
+      (data) => data.name.toLocaleLowerCase() == query.toLocaleLowerCase()
+    );
     navigate(`${value[0].path}`);
   };
-
-  const dropdownList = data.filter((item) =>
-    item.name.toLowerCase().includes(query.toLowerCase())
-  );
   useEffect(() => {
     const handleKey = (event) => {
       if (event.key === "/") {
@@ -31,11 +35,15 @@ export default function useSearchBar() {
   }, []);
 
   return {
+    selected,
+    setSelected,
     handleSearch,
     dropdownList,
-    handleQuery,
-    showDropdown,
+    // handleQuery,
+    // showDropdown,
     query,
     inputRef,
+    setQuery,
+    data,
   };
 }

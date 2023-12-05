@@ -5,7 +5,8 @@ import { MdDeleteForever } from "react-icons/md";
 import { FaPen } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Modal from "../../../../Helpers/Modal";
-import EditModal from "../../../../Helpers/EditModal";
+
+import EditModal from "@src/Helpers/EditModal";
 const TeamMembers = () => {
   const {
     response,

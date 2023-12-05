@@ -1,13 +1,13 @@
 import "./App.css";
-import.meta.env;
 import { Routes, Route } from "react-router-dom";
-// import Mainsection from "./Components/Sections/Mainsection";
 import User from "./Components/Sections/JSONplaceholderUser";
 import ProtectedRoute from "./Helpers/ProtectedRoute";
-import Login from "./pages/Login//index";
-import Userdetails from "./Components/Sections/SingleUserPage/Userdetails";
-import Home from "./pages/Home/index";
+import Login from "./pages/Login/index";
+import Userdetails from "@src/Components/Sections/SingleUserPage/Userdetails";
+import { Suspense } from "react";
+import { lazy } from "react";
 
+const Home = lazy(() => import("@src/pages/Home/index"));
 function App() {
   return (
     <>
@@ -18,7 +18,9 @@ function App() {
               path="/"
               element={
                 <ProtectedRoute>
-                  <Home />
+                  <Suspense fallback={<div>Wait it is Loading....</div>}>
+                    <Home />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />

@@ -1,5 +1,5 @@
-import Sidebar from "../../Sidebar/Sidebar";
-import Nav from "../../Navbar/Nav";
+import Sidebar from "@src/Components/Sidebar/Sidebar";
+import Nav from "@src/Components/Navbar/Nav";
 import SingleUserDeatils from "./SingleUser";
 import AllUserList from "./AllUserList";
 import SearchUser from "./SearchUser";

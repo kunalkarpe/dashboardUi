@@ -4,7 +4,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { LuChevronsUpDown } from "react-icons/lu";
 import { Combobox, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchMembers } from "../../../Api/api";
+import { fetchMembers } from "@src/Api/api";
 const SearchUser = () => {
   const [query, setQuery] = useState("");
   const { id } = useParams();

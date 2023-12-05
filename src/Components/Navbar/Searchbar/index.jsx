@@ -1,60 +1,89 @@
 import { IoIosSearch } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Fragment } from "react";
 import useSearchBar from "./useSearchBar";
+import { Combobox, Transition } from "@headlessui/react";
+import { Link } from "react-router-dom";
 const SearchBar = () => {
   const {
+    selected,
+    setSelected,
     handleSearch,
     dropdownList,
-    handleQuery,
-    showDropdown,
+    setQuery,
     query,
     inputRef,
   } = useSearchBar();
   return (
     <>
-      <section className="flex  flex-col  w-72 h-44 mt-[15vh]   ">
-        <div className="flex   items-center px-4 py-1 mt-2">
-          <input
-            className="flex border border-slate-200 shadow-sm w-52 h-4 p-4 rounded-2xl    outline-none"
-            placeholder="Search here..."
-            ref={inputRef}
-            value={query}
-            onChange={handleQuery}
-          ></input>
-          <button
-            className="flex ms-2 border border-slate-300 rounded-full p-2 bg-lime-300  "
-            onClick={handleSearch}
-          >
-            <IoIosSearch color="grey" />
-          </button>
-        </div>
-        {showDropdown && query !== "" && (
-          <div className="flex flex-col items-start justify-start border border-transparent bg-white rounded-2xl p-4 shadow-lg">
-            <div className="flex flex-col">
-              {dropdownList.length == 0 ? (
-                <>
-                  <p>No Results Found!</p>
-                </>
-              ) : (
-                dropdownList.map((items) => {
-                  return (
-                    <>
-                      <div
-                        className="flex hover:bg-lime-300  w-full border border-transparent w-60 p-1 rounded-2xl m-1 hover:bg-lime-300 items-center content-center hover:pointer"
-                        key={items.id}
-                      >
-                        <Link to={items.path}>
-                          <div className=" px-2 ">{items.name}</div>
-                        </Link>
-                      </div>
-                    </>
-                  );
-                })
-              )}
+      <div className="flex   outline-none  w-72">
+        <Combobox value={selected} onChange={setSelected}>
+          <div className="relative mt-1   w-full">
+            <div className="relative w-full cursor-default overflow-hidden rounded-2xl bg-white text-left shadow-md focus:outline-none  focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm  ">
+              <Combobox.Input
+                className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 outline-none"
+                placeholder="Search here...."
+                displayValue={(person) => person.name}
+                onChange={(event) => setQuery(event.target.value)}
+                ref={inputRef}
+              />
+              <Combobox.Button
+                className=" flex absolute inset-y-0 right-0 items-center p-2 m-1 rounded-full bg-lime-300"
+                onClick={handleSearch}
+              >
+                <IoIosSearch color="grey" />
+              </Combobox.Button>
             </div>
+            <Transition
+              as={Fragment}
+              leave="transition ease-in-out duration-00"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+              afterLeave={() => setQuery("")}
+            >
+              <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-2xl bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                {dropdownList.length === 0 && query !== "" ? (
+                  <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
+                    Nothing found.
+                  </div>
+                ) : (
+                  dropdownList.map((person) => (
+                    <Combobox.Option
+                      key={person.id}
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? "bg-lime-300 text-black" : "text-gray-900"
+                        }`
+                      }
+                      value={person}
+                    >
+                      {({ selected, active }) => (
+                        <>
+                          <Link to={person.path}>
+                            <span
+                              className={`block truncate ${
+                                selected ? "font-medium" : "font-normal"
+                              }`}
+                            >
+                              {person.name}
+                            </span>
+                          </Link>
+                          {selected ? (
+                            <span
+                              className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                active ? "text-white" : "text-teal-600"
+                              }`}
+                            ></span>
+                          ) : null}
+                        </>
+                      )}
+                    </Combobox.Option>
+                  ))
+                )}
+              </Combobox.Options>
+            </Transition>
           </div>
-        )}
-      </section>
+        </Combobox>
+      </div>
     </>
   );
 };

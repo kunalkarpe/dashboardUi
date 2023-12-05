@@ -1,4 +1,4 @@
-import Card from "../../Helpers/Card";
+import Card from "@src/Helpers/Card";
 const Earning = () => {
   const data = [
     {

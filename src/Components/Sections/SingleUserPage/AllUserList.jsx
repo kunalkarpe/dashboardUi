@@ -1,12 +1,12 @@
 import { MdKeyboardArrowRight, MdDeleteForever } from "react-icons/md";
 import { IoIosAdd } from "react-icons/io";
 import { FaPen } from "react-icons/fa";
-import EditModal from "../../../Helpers/EditModal";
-import Modal from "../../../Helpers/Modal";
+import EditModal from "@src/Helpers/EditModal";
+import Modal from "@src/Helpers/Modal";
 import { Link, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { fetchMembers, deleteMembers } from "../../../Api/api";
+import { fetchMembers, deleteMembers } from "@src/Api/api";
 const AllUserList = () => {
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState(false);

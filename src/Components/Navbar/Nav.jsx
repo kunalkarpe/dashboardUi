@@ -3,8 +3,8 @@ import { FaRegBell } from "react-icons/fa";
 import girl from "../../assets/girl.avif";
 import { RiUserShared2Fill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import useFetchUser from "../../CustomHooksLogin/usefetchData.js";
-import useLogout from "../../CustomHooksLogin/uselogoutUser.js";
+import useFetchUser from "@src/CustomHooksLogin/usefetchData";
+import useLogout from "@src/CustomHooksLogin/uselogoutUser";
 import { useMutation } from "@tanstack/react-query";
 import SearchBar from "./Searchbar/index.jsx";
 
