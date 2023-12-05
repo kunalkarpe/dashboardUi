@@ -3,9 +3,12 @@ import { Fragment, useState } from "react";
 import useSearchBar from "./useSearchBar";
 import { Combobox, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const SearchBar = () => {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
   const {
+    handleKeyPress,
     selected,
     setSelected,
     handleSearch,
@@ -14,23 +17,28 @@ const SearchBar = () => {
     query,
     inputRef,
   } = useSearchBar();
+
   return (
     <>
       <div className="flex   outline-none  w-72">
         <Combobox value={selected} onChange={setSelected}>
           <div className="relative mt-1   w-full">
             <div className="relative w-full cursor-default overflow-hidden rounded-2xl bg-white text-left shadow-md focus:outline-none  focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm  ">
-              <Combobox.Button>
-                <Combobox.Input
-                  className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 outline-none"
-                  placeholder="Search here...."
-                  displayValue={(person) => person.name}
-                  onChange={(event) => setQuery(event.target.value)}
-                  ref={inputRef}
-                  onFocus={() => setShow(true)}
-                  onBlur={() => setShow(false)}
-                />
-              </Combobox.Button>
+              <Combobox.Input
+                className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 outline-none"
+                type="text"
+                value={query}
+                placeholder="Search here...."
+                displayValue={(person) => person.name}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                }}
+                ref={inputRef}
+                onFocus={() => setShow(true)}
+                onBlur={() => setShow(false)}
+                onKeyDown={handleKeyPress}
+                onE
+              />
               <Combobox.Button
                 className=" flex absolute inset-y-0 right-0 items-center p-2 m-1 rounded-full bg-lime-300"
                 onClick={handleSearch}

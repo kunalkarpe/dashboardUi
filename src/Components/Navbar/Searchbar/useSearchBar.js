@@ -18,13 +18,26 @@ export default function useSearchBar() {
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
 
-  const handleSearch = () => {
-    const value = data.find((data) =>
-      data.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())
-    );
+  // const handleSearch = () => {
+  //   const value = data.find((data) =>
+  //     data.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+  //   );
 
-    navigate(`${value.path}`);
+  //
+  // };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      const value = data.find((person) =>
+        person.name
+          .toLocaleLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLocaleLowerCase().replace(/\s+/g, ""))
+      );
+      navigate(`${value.path}`);
+    }
   };
+
   useEffect(() => {
     const handleKey = (event) => {
       if (event.key === "/") {
@@ -38,10 +51,8 @@ export default function useSearchBar() {
   return {
     selected,
     setSelected,
-    handleSearch,
     dropdownList,
-    // handleQuery,
-    // showDropdown,
+    handleKeyPress,
     query,
     inputRef,
     setQuery,
