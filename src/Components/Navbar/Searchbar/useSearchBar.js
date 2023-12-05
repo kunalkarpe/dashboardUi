@@ -19,10 +19,11 @@ export default function useSearchBar() {
         );
 
   const handleSearch = () => {
-    const value = data.filter(
-      (data) => data.name.toLocaleLowerCase() == query.toLocaleLowerCase()
+    const value = data.find((data) =>
+      data.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())
     );
-    navigate(`${value[0].path}`);
+
+    navigate(`${value.path}`);
   };
   useEffect(() => {
     const handleKey = (event) => {
