@@ -6,6 +6,7 @@ import Login from "./pages/Login/index";
 import Userdetails from "@src/Components/Sections/SingleUserPage/Userdetails";
 import { Suspense } from "react";
 import { lazy } from "react";
+import MockUser from "./pages/Mockuser/MockUser";
 
 const Home = lazy(() => import("@src/pages/Home/index"));
 function App() {
@@ -33,6 +34,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/mockuser" element={<MockUser />} />
             <Route
               path="/user"
               element={

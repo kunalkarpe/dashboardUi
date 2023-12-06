@@ -35,7 +35,7 @@ export default function useSearchBar() {
           .includes(query.toLocaleLowerCase().replace(/\s+/g, ""))
       );
       navigate(`${value.path}`);
-      setQuery("");
+      // setQuery("");
     }
   };
 

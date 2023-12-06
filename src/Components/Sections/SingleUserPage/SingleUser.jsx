@@ -6,7 +6,7 @@ const SearchSingleUser = () => {
   const queryCLient = useQueryClient();
   const list = queryCLient.getQueryData(["listkey"]);
 
-  const singleMember = list.find((member) => member.id == id);
+  const singleMember = list.filter((member) => member.id == id);
 
   return (
     <>

@@ -12,7 +12,7 @@ const Mainsection = () => {
       <Sidebar />
       <main className="flex  lg:flex-row xl:flex-row 2xl:flex-row md:flex-col sm:flex-col lg:h-full xl:h-full 2xl:h-ful lg:mt-12 xl:mt-12 2xl:mt-12  ">
         <div className="flex justify-center flex-col border border-transparent  lg:w-[67.5vw] h-full  ">
-          <section className="flex px-4 justify-around sm:mt-16 md:mt-16 lg:mt-2 xl:mt-2 2xl:mt-2  border border-transparent">
+          <section className="flex px-4 justify-around sm:mt-16 md:mt-16 lg:mt-2 xl:mt-0   border border-transparent">
             <Earning />
           </section>
           <div className="flex">

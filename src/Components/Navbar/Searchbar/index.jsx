@@ -20,32 +20,21 @@ const SearchBar = () => {
     query,
     inputRef,
   } = useSearchBar();
-  const handleSelect = ({ path }) => {
-    if (selected !== "") {
-      navigate(path);
+  useEffect(() => {
+    if (selected) {
+      navigate(selected.path);
     }
-  };
-  // useEffect(() => {
-  //   if (selected !== "" && selected.path !== selected) {
-  //     navigate(selected.path);
-  //   }
-  // }, [selected]);
+  }, [selected]);
+
   return (
     <>
       <div className="flex   outline-none  w-72">
-        <Combobox
-          value={selected}
-          onChange={setSelected}
-          onSelect={(e) => {
-            console.log(e);
-          }}
-        >
+        <Combobox value={selected} onChange={setSelected}>
           <div className="relative mt-1   w-full">
             <div className="relative w-full cursor-default overflow-hidden rounded-2xl bg-white text-left shadow-md focus:outline-none  focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm  ">
               <Combobox.Input
                 className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 outline-none"
                 type="text"
-                value={query}
                 placeholder="Search here...."
                 displayValue={(person) => person.name}
                 onChange={(event) => {
@@ -80,13 +69,15 @@ const SearchBar = () => {
                   dropdownList.map((person) => (
                     <Combobox.Option
                       key={person.id}
-                      onClick={() => navigate(person.path)}
+                      onClick={() => {
+                        navigate(person.path);
+                      }}
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4  hover:cursor-pointer hover:bg-lime-300 text-black ${
                           active ? "bg-lime-300 text-black" : "text-gray-900"
                         }`
                       }
-                      value={person.path}
+                      value={person}
                     >
                       {({ selected, active }) => (
                         <>
@@ -94,7 +85,7 @@ const SearchBar = () => {
                             <span
                               className={`block truncate ${
                                 selected
-                                  ? "font-medium disabled"
+                                  ? "font-medium disabled  "
                                   : "font-normal"
                               }`}
                             >
