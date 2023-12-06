@@ -4,9 +4,12 @@ import useSearchBar from "./useSearchBar";
 import { Combobox, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import data from "./searchBar.constants";
+import { useEffect } from "react";
 const SearchBar = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+
   const {
     handleKeyPress,
     selected,
@@ -17,11 +20,26 @@ const SearchBar = () => {
     query,
     inputRef,
   } = useSearchBar();
-
+  const handleSelect = ({ path }) => {
+    if (selected !== "") {
+      navigate(path);
+    }
+  };
+  // useEffect(() => {
+  //   if (selected !== "" && selected.path !== selected) {
+  //     navigate(selected.path);
+  //   }
+  // }, [selected]);
   return (
     <>
       <div className="flex   outline-none  w-72">
-        <Combobox value={selected} onChange={setSelected}>
+        <Combobox
+          value={selected}
+          onChange={setSelected}
+          onSelect={(e) => {
+            console.log(e);
+          }}
+        >
           <div className="relative mt-1   w-full">
             <div className="relative w-full cursor-default overflow-hidden rounded-2xl bg-white text-left shadow-md focus:outline-none  focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm  ">
               <Combobox.Input
@@ -37,7 +55,6 @@ const SearchBar = () => {
                 onFocus={() => setShow(true)}
                 onBlur={() => setShow(false)}
                 onKeyDown={handleKeyPress}
-                onE
               />
               <Combobox.Button
                 className=" flex absolute inset-y-0 right-0 items-center p-2 m-1 rounded-full bg-lime-300"
@@ -63,24 +80,27 @@ const SearchBar = () => {
                   dropdownList.map((person) => (
                     <Combobox.Option
                       key={person.id}
+                      onClick={() => navigate(person.path)}
                       className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                        `relative cursor-default select-none py-2 pl-10 pr-4  hover:cursor-pointer hover:bg-lime-300 text-black ${
                           active ? "bg-lime-300 text-black" : "text-gray-900"
                         }`
                       }
-                      value={person}
+                      value={person.path}
                     >
                       {({ selected, active }) => (
                         <>
-                          <Link to={person.path}>
+                          <span>
                             <span
                               className={`block truncate ${
-                                selected ? "font-medium" : "font-normal"
+                                selected
+                                  ? "font-medium disabled"
+                                  : "font-normal"
                               }`}
                             >
                               {person.name}
                             </span>
-                          </Link>
+                          </span>
                           {selected ? (
                             <span
                               className={`absolute inset-y-0 left-0 flex items-center pl-3 ${

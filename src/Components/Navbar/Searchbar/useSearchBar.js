@@ -4,7 +4,7 @@ import data from "./searchBar.constants";
 
 export default function useSearchBar() {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState("");
   const [query, setQuery] = useState("");
   const inputRef = useRef(" ");
 
@@ -35,6 +35,7 @@ export default function useSearchBar() {
           .includes(query.toLocaleLowerCase().replace(/\s+/g, ""))
       );
       navigate(`${value.path}`);
+      setQuery("");
     }
   };
 
