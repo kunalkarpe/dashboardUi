@@ -74,7 +74,7 @@ const MockUser = () => {
     onSortingChange: setSorting,
     onGlobalFilteringChange: setFiltering,
   });
-  // console.log(fetchedData);
+  // console.log(table.getAllLeafColumns());
 
   const handleToogle = () => {
     if (toogle == false) {
@@ -86,8 +86,8 @@ const MockUser = () => {
 
   return (
     <>
-      <div className="container mt-10 ms-12 bg-white flex   px-4  justify-center">
-        <div className="border border-slate-300 rounded-2xl p-2  justify-center">
+      <div className="  mt-10 ms-12 bg-white flex w-[70vw]  px-4 border border-transparent  justify-center">
+        <div className="border border-transparent w-[65vw] rounded-2xl p-2  justify-center">
           <input
             type="text"
             value={filtering}
@@ -96,20 +96,20 @@ const MockUser = () => {
             placeholder="Search here...."
           />
           <button
-            className={`border border-black ms-12 rounded-lg p-1 ${
-              toogle ? "bg-lime-300" : ""
+            className={`border border-slate-400 ms-12 rounded-lg p-2   ${
+              toogle ? "bg-lime-300   text-red-600 " : ""
             }`}
             onClick={handleToogle}
           >
             <FaFilter />
           </button>
 
-          <table>
-            <thead className="border border-black rounded-2xl">
+          <table className="w-full">
+            <thead className="border border-black rounded-2xl w-full">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr
                   key={headerGroup.id}
-                  className="border border-slate-400 bg-slate-200 rounded-2xl py-4"
+                  className="border border-slate-400 bg-orange-300 rounded-2xl py-4   "
                 >
                   {headerGroup.headers.map((header) => (
                     <th
@@ -134,9 +134,11 @@ const MockUser = () => {
               ))}
             </thead>
             <tbody className=" p-2">
-              {table.getRowModel().rows.map((row) => (
+              {table.getRowModel().rows.map((row, index) => (
                 <tr
-                  className="border border-slate-400 rounded-2xl  p-2"
+                  className={`border border-slate-400 rounded-2xl  p-2 ${
+                    index % 2 == 0 ? " bg-white" : "bg-neutral-300"
+                  }`}
                   key={row.id}
                 >
                   {row.getVisibleCells().map((cell) => (
@@ -159,34 +161,42 @@ const MockUser = () => {
               First
             </button>
             <button
-              disabled={!table.getCanPreviousPage()}
+              disabled={table.getState().pagination.pageIndex + 1 == 1}
               onClick={() => table.previousPage()}
-              className={`w-24 border border-slate-400 rounded-2xl m-2 hover:bg-lime-400  hover:border-transparent  ${
-                !table.getCanPreviousPage() ? "hidden" : "visible"
-              }`}
+              className={`w-24 border border-slate-400 rounded-2xl m-2 hover:bg-lime-400  hover:border-transparent  disabled:cursor-not-allowed  `}
             >
               Previous
             </button>
+            <div className="mt-2">
+              <span>
+                {table.getState().pagination.pageIndex + 1} of{" "}
+                {table.getPageCount()}
+              </span>
+            </div>
             <button
-              disabled={!table.getCanNextPage()}
+              disabled={
+                table.getState().pagination.pageIndex + 1 ==
+                table.getPageCount()
+              }
               onClick={() => table.nextPage()}
-              className={`w-24 border  border-slate-400 rounded-2xl m-2 hover:bg-lime-400  hover:border-transparent ${
-                !table.getCanNextPage() ? "hidden" : "visible"
-              }`}
+              className={`w-24 border  border-slate-400 rounded-2xl m-2 hover:bg-lime-400  hover:border-transparent disabled:cursor-not-allowed
+                
+              `}
             >
               Next
             </button>
             <button
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-              className="w-24 border border-slate-400 rounded-2xl m-2 hover:bg-lime-400 hover:border-transparent"
+              className={`w-24 border border-slate-400 rounded-2xl m-2 hover:bg-lime-400 hover:border-transparent 
+               `}
             >
               Last
             </button>
           </div>
         </div>
         {toogle ? (
-          <div className="flex flex-col relative z-20 border border-black w-32 bg-white ms-12 h-fit py-2 shadow rounded">
-            <div className="px-1 border-b border-black items-center justify-center">
+          <div className="flex flex-col relative z-20 border border-slate-400 w-32 bg-white ms-12 mt-12 h-fit  shadow rounded">
+            <div className="p-1  border-b-2  mb-2 flex items-center justify-center">
               <label>Toggle </label>
             </div>
             {table.getAllLeafColumns().map((column) => {
