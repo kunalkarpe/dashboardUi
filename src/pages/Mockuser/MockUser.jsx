@@ -9,10 +9,12 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 const MockUser = () => {
   const data = useMemo(() => mdata, []);
   const [sorting, setSorting] = useState([]);
+  const [filtering, setFiltering] = useState("");
 
   const columns = [
     {
@@ -43,23 +45,41 @@ const MockUser = () => {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      sorting: sorting,
+      globalFilter: filtering,
+    },
+    onSortingChange: setSorting,
+    onGlobalFilteringChange: setFiltering,
   });
   //   console.log(column);
 
   return (
     <>
-      <div className="container mt-20 ms-12 bg-white">
-        <div>
+      <div className="container mt-10 ms-12 bg-white flex   px-4  justify-center">
+        <div className="border border-slate-300 rounded-2xl p-2  justify-center">
+          <input
+            type="text"
+            value={filtering}
+            onChange={(e) => setFiltering(e.target.value)}
+            className="border border-slate-300 rounded-lg shadow-md mb-2 p-1 outline-none"
+            placeholder="Search here...."
+          />
           <table>
-            <thead>
+            <thead className="border border-black rounded-2xl">
               {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
+                <tr
+                  key={headerGroup.id}
+                  className="border border-black rounded-2xl"
+                >
                   {headerGroup.headers.map((header) => (
                     <th
+                      className="b d"
                       key={header.id}
                       onClick={header.column.getToggleSortingHandler()}
                     >
-                      <div className="border border-black px-2 flex items-center ">
+                      <div className="  px-2 flex items-center ">
                         {flexRender(
                           header.column.columnDef.header,
                           header.getContext()
@@ -76,11 +96,14 @@ const MockUser = () => {
                 </tr>
               ))}
             </thead>
-            <tbody className="border border-black p-2">
+            <tbody className=" p-2">
               {table.getRowModel().rows.map((row) => (
-                <tr className="border border-black p-2" key={row.id}>
+                <tr
+                  className="border border-slate-400 rounded-2xl  p-2"
+                  key={row.id}
+                >
                   {row.getVisibleCells().map((cell) => (
-                    <td className="border border-black p-2" key={cell.id}>
+                    <td className="  p-2" key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -91,32 +114,38 @@ const MockUser = () => {
               ))}
             </tbody>
           </table>
-          <button
-            onClick={() => table.setPageIndex(0)}
-            className="w-24 border border-black rounded-2xl m-2 bg-lime-300"
-          >
-            First
-          </button>
-          <button
-            disabled={!table.getCanPreviousPage()}
-            onClick={() => table.previousPage()}
-            className="w-24 border border-black rounded-2xl m-2 bg-lime-300"
-          >
-            Previous
-          </button>
-          <button
-            disabled={!table.getCanNextPage()}
-            onClick={() => table.nextPage()}
-            className="w-24 border border-black rounded-2xl m-2 bg-lime-300"
-          >
-            Next
-          </button>
-          <button
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-            className="w-24 border border-black rounded-2xl m-2 bg-lime-300"
-          >
-            Last
-          </button>
+          <div className="  flex justify-center">
+            <button
+              onClick={() => table.setPageIndex(0)}
+              className="w-24 border  border-slate-400 rounded-2xl m-2 hover:bg-lime-400  hover:border-transparent"
+            >
+              First
+            </button>
+            <button
+              disabled={!table.getCanPreviousPage()}
+              onClick={() => table.previousPage()}
+              className={`w-24 border border-slate-400 rounded-2xl m-2 hover:bg-lime-400  hover:border-transparent  ${
+                !table.getCanPreviousPage() ? "hidden" : "visible"
+              }`}
+            >
+              Previous
+            </button>
+            <button
+              disabled={!table.getCanNextPage()}
+              onClick={() => table.nextPage()}
+              className={`w-24 border  border-slate-400 rounded-2xl m-2 hover:bg-lime-400  hover:border-transparent ${
+                !table.getCanNextPage() ? "hidden" : "visible"
+              }`}
+            >
+              Next
+            </button>
+            <button
+              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+              className="w-24 border border-slate-400 rounded-2xl m-2 hover:bg-lime-400 hover:border-transparent"
+            >
+              Last
+            </button>
+          </div>
         </div>
       </div>
     </>
