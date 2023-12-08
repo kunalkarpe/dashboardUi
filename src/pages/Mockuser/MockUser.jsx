@@ -7,6 +7,10 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaFilter } from "react-icons/fa";
 import { FaMale } from "react-icons/fa";
 import { FaFemale } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { IoPersonAddSharp } from "react-icons/io5";
+import { BiMessageSquareEdit } from "react-icons/bi";
+import MockuserAddModal from "./MockuserAddModal";
 import {
   flexRender,
   useReactTable,
@@ -17,10 +21,20 @@ import {
 } from "@tanstack/react-table";
 const MockUser = () => {
   const data = useMemo(() => mdata, []);
+  const [mockData, setMockData] = useState(data);
   const [sorting, setSorting] = useState([]);
   const [filtering, setFiltering] = useState("");
-  const [fetchedData, setFetchedData] = useState();
   const [toogle, setToogle] = useState(false);
+  const [show, setShow] = useState(false);
+  const [popoverItemId, setPopoverItemId] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+
+  const openAddModal = () => {
+    setOpenModal(true);
+  };
+  const close = () => {
+    setOpenModal(false);
+  };
   const columns = [
     {
       header: "ID",
@@ -29,13 +43,6 @@ const MockUser = () => {
     {
       header: "First Name",
       accessorKey: "first_name",
-      // cell: ({ row }) => {
-      //   return (
-      //     <>
-      //       <span className="text-blue-800">{row.original.first_name}</span>
-      //     </>
-      //   );
-      // },
     },
     {
       header: "Last Name",
@@ -44,13 +51,6 @@ const MockUser = () => {
     {
       header: "Email",
       accessorKey: "email",
-      // cell: ({ row }) => {
-      //   return (
-      //     <>
-      //       <span className="text-blue-800">{row.original.email}</span>
-      //     </>
-      //   );
-      // },
     },
     {
       header: "Gender",
@@ -84,11 +84,24 @@ const MockUser = () => {
       cell: ({ row }) => {
         return (
           <>
+            {show && popoverItemId == row.original.id && (
+              <>
+                <div className="container z-10 absolute   -translate-y-6 border border-slate-400 rounded-lg   w-16   flex justify-center       bg-white ">
+                  <div className="div flex items-center  py-1 justify-around">
+                    <button>
+                      <BiMessageSquareEdit className="text-orange-700" />
+                    </button>
+                    <button>
+                      <MdDelete className="text-red-700" />
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
             <button
-              className="text-[#E11441]   w-full  mr-2   flex  justify-center"
+              className="text-[#E11441] relative  w-full  mr-2     flex  justify-center"
               onClick={() => {
-                setFetchedData(JSON.stringify(row.original.first_name)),
-                  alert(`Hello from ${row.original.first_name} `);
+                togglePopover(row.original.id);
               }}
             >
               <BsThreeDots />
@@ -100,7 +113,7 @@ const MockUser = () => {
   ];
 
   const table = useReactTable({
-    data,
+    data: mockData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -121,6 +134,15 @@ const MockUser = () => {
       setToogle(false);
     }
   };
+
+  const togglePopover = (itemId) => {
+    setPopoverItemId(itemId);
+    if (show == false) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  };
   // console.log();
 
   return (
@@ -134,8 +156,13 @@ const MockUser = () => {
             className="border border-slate-300 rounded-lg shadow-md mb-2 p-1 outline-none"
             placeholder="Search here...."
           />
+          <button className="border border-slate-400 text-lime-600 rounded-lg ms-4 bg- p-2">
+            {" "}
+            <IoPersonAddSharp onClick={openAddModal} />
+          </button>
+
           <button
-            className={`border border-slate-400 ms-10 rounded-lg p-2   `}
+            className={`border border-slate-400 ms-2 rounded-lg p-2   `}
             onClick={handleToogle}
           >
             <FaFilter />
@@ -253,6 +280,7 @@ const MockUser = () => {
           </div>
         </div>
       </div>
+      {openModal && <MockuserAddModal close={close} mockData={mockData} />}
     </>
   );
 };
