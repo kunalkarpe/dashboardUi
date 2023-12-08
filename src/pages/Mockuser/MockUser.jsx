@@ -1,10 +1,12 @@
 import React, { useMemo } from "react";
 import mdata from "@src/MocakData/MOCK_DATA";
-import { FaRegArrowAltCircleUp } from "react-icons/fa";
-import { FaArrowCircleDown } from "react-icons/fa";
+import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { FaFilter } from "react-icons/fa";
+import { FaMale } from "react-icons/fa";
+import { FaFemale } from "react-icons/fa";
 import {
   flexRender,
   useReactTable,
@@ -27,6 +29,13 @@ const MockUser = () => {
     {
       header: "First Name",
       accessorKey: "first_name",
+      // cell: ({ row }) => {
+      //   return (
+      //     <>
+      //       <span className="text-blue-800">{row.original.first_name}</span>
+      //     </>
+      //   );
+      // },
     },
     {
       header: "Last Name",
@@ -35,10 +44,39 @@ const MockUser = () => {
     {
       header: "Email",
       accessorKey: "email",
+      // cell: ({ row }) => {
+      //   return (
+      //     <>
+      //       <span className="text-blue-800">{row.original.email}</span>
+      //     </>
+      //   );
+      // },
     },
     {
       header: "Gender",
       accessorKey: "gender",
+      cell: ({ row }) => {
+        return (
+          <>
+            <span
+              className={`${
+                row.original.gender == "Male"
+                  ? "text-orange-600"
+                  : "text-gray-600"
+              } ${
+                row.original.gender == "Female"
+                  ? "text-lime-600"
+                  : "text-gray-600"
+              }`}
+            >
+              <div className="flex items-center">
+                {row.original.gender == "Male" ? <FaMale /> : <FaFemale />}
+                {row.original.gender}
+              </div>
+            </span>
+          </>
+        );
+      },
     },
     {
       header: "Button",
@@ -47,6 +85,7 @@ const MockUser = () => {
         return (
           <>
             <button
+              className="text-[#E11441]   w-full  mr-2   flex  justify-center"
               onClick={() => {
                 setFetchedData(JSON.stringify(row.original.first_name)),
                   alert(`Hello from ${row.original.first_name} `);
@@ -74,7 +113,6 @@ const MockUser = () => {
     onSortingChange: setSorting,
     onGlobalFilteringChange: setFiltering,
   });
-  // console.log(table.getAllLeafColumns());
 
   const handleToogle = () => {
     if (toogle == false) {
@@ -83,6 +121,7 @@ const MockUser = () => {
       setToogle(false);
     }
   };
+  // console.log();
 
   return (
     <>
@@ -96,63 +135,81 @@ const MockUser = () => {
             placeholder="Search here...."
           />
           <button
-            className={`border border-slate-400 ms-12 rounded-lg p-2   ${
-              toogle ? "bg-lime-300   text-red-600 " : ""
-            }`}
+            className={`border border-slate-400 ms-10 rounded-lg p-2   `}
             onClick={handleToogle}
           >
             <FaFilter />
           </button>
-
-          <table className="w-full">
-            <thead className="border border-black rounded-2xl w-full">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr
-                  key={headerGroup.id}
-                  className="border border-slate-400 bg-orange-300 rounded-2xl py-4   "
-                >
-                  {headerGroup.headers.map((header) => (
-                    <th
-                      key={header.id}
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      <div className="  px-2 flex items-center ">
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                        {
+          {toogle ? (
+            <div className="absolute z-20 border border-slate-400 w-32 bg-white ms-72  -mt-10 h-fit  shadow rounded">
+              <div className="p-1  border-b-2  mb-2 flex items-center justify-center">
+                <label>Toggle </label>
+              </div>
+              {table.getAllLeafColumns().map((column) => {
+                return (
+                  <div key={column.id} className="px-1">
+                    <label>
+                      <input
+                        className={` `}
+                        {...{
+                          type: "checkbox",
+                          checked: column.getIsVisible(),
+                          onChange: column.getToggleVisibilityHandler(),
+                        }}
+                      />{" "}
+                      {column.id}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="border border-slate-300  p-1 rounded-lg">
+            <table className="w-full   ">
+              <thead className="  w-full  ">
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id} className="  rounded-lg py-2 ">
+                    {headerGroup.headers.map((header) => (
+                      <th
+                        className="  border-b-2   border-slate-300  text-gray-800 font-semibold  py-1   "
+                        key={header.id}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        <div className="  px-2 flex items-center  ">
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                           {
-                            asc: <FaRegArrowAltCircleUp />,
-                            desc: <FaArrowCircleDown />,
-                          }[header.column.getIsSorted() ?? null]
-                        }
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody className=" p-2">
-              {table.getRowModel().rows.map((row, index) => (
-                <tr
-                  className={`border border-slate-400 rounded-2xl  p-2 ${
-                    index % 2 == 0 ? " bg-white" : "bg-neutral-300"
-                  }`}
-                  key={row.id}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <td className="  p-2" key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                            {
+                              asc: <IoIosArrowUp className="ms-1" />,
+                              desc: <IoIosArrowDown className="ms-2" />,
+                            }[header.column.getIsSorted() ?? null]
+                          }
+                        </div>
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              <tbody className="  p-2">
+                {table.getRowModel().rows.map((row, index) => (
+                  <tr className={`   rounded-2xl  p-2  `} key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <td className={`  p-2  `} key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="  flex justify-center">
             <button
               onClick={() => table.setPageIndex(0)}
@@ -167,11 +224,12 @@ const MockUser = () => {
             >
               Previous
             </button>
-            <div className="mt-2">
-              <span>
-                {table.getState().pagination.pageIndex + 1} of{" "}
-                {table.getPageCount()}
+            <div className="mt-2  ">
+              <span className="text-[#E11441] mr-2">
+                {table.getState().pagination.pageIndex + 1}
               </span>
+              of
+              <span className="ms-2">{table.getPageCount()}</span>
             </div>
             <button
               disabled={
@@ -194,31 +252,6 @@ const MockUser = () => {
             </button>
           </div>
         </div>
-        {toogle ? (
-          <div className="flex flex-col relative z-20 border border-slate-400 w-32 bg-white ms-12 mt-12 h-fit  shadow rounded">
-            <div className="p-1  border-b-2  mb-2 flex items-center justify-center">
-              <label>Toggle </label>
-            </div>
-            {table.getAllLeafColumns().map((column) => {
-              return (
-                <div key={column.id} className="px-1">
-                  <label>
-                    <input
-                      {...{
-                        type: "checkbox",
-                        checked: column.getIsVisible(),
-                        onChange: column.getToggleVisibilityHandler(),
-                      }}
-                    />{" "}
-                    {column.id}
-                  </label>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          ""
-        )}
       </div>
     </>
   );
