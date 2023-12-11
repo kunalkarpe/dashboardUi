@@ -11,6 +11,9 @@ import { MdDelete } from "react-icons/md";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { BiMessageSquareEdit } from "react-icons/bi";
 import MockuserAddModal from "./MockuserAddModal";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+
 import {
   flexRender,
   useReactTable,
@@ -20,6 +23,8 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 import MockuserEditModal from "./MockuserEditModal";
+import Nav from "@src/Components/Navbar/Nav";
+import Sidebar from "@src/Components/Sidebar/Sidebar";
 const MockUser = () => {
   const data = useMemo(() => mdata, []);
   const [mockData, setMockData] = useState(data);
@@ -31,8 +36,7 @@ const MockUser = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openEditMoadal, setOpenEditMoadal] = useState(false);
   const [editData, setEditData] = useState();
-  const [editIndex, setEditIndex] = useState();
-
+  const notifyDelete = () => toast.success("People Deleted succesfully!");
   const openAddModal = () => {
     setOpenModal(true);
   };
@@ -45,12 +49,12 @@ const MockUser = () => {
     const deletedData = mockData.filter((data) => data.id !== id);
     setMockData(deletedData);
     setShow(false);
+    notifyDelete();
   };
 
-  const handleEdit = (data, index) => {
+  const handleEdit = (data) => {
     setOpenEditMoadal(true);
     setEditData(data);
-    setEditIndex(index);
   };
 
   const columns = [
@@ -104,19 +108,21 @@ const MockUser = () => {
           <>
             {show && popoverItemId == row.original.id && (
               <>
-                <div className="container z-10 absolute   -translate-y-6 border border-slate-400 rounded-lg   w-16   flex justify-center       bg-white ">
-                  <div className="div flex items-center  py-1 justify-around">
-                    <button>
+                <div className="container z-10 absolute h-11    -translate-y-12 -translate-x-3 border border-slate-400 w-20 rounded-lg   w-18   flex justify-center       bg-white ">
+                  <div className="div flex items-center  py-1 justify-around mt-1 w-full">
+                    <button className="items-center flex flex-col">
                       <BiMessageSquareEdit
                         className="text-orange-700"
-                        onClick={() => handleEdit(row.original, row.index)}
+                        onClick={() => handleEdit(row.original)}
                       />
+                      <span className="text-xs">Edit</span>
                     </button>
-                    <button>
+                    <button className="flex flex-col  items-center">
                       <MdDelete
                         className="text-red-700"
                         onClick={() => handleDelete(row.original.id)}
                       />
+                      <span className="text-xs">Delete</span>
                     </button>
                   </div>
                 </div>
@@ -171,7 +177,9 @@ const MockUser = () => {
 
   return (
     <>
-      <div className="  mt-10 ms-12 bg-white flex w-[70vw]  px-4 border border-transparent  justify-center">
+      <Nav />
+      <Sidebar />
+      <div className="  mt-16 ms-12 bg-white flex w-[70vw]  px-4 border border-transparent  justify-center">
         <div className="border border-transparent w-[65vw] rounded-2xl p-2  justify-center">
           <input
             type="text"
@@ -263,8 +271,9 @@ const MockUser = () => {
           </div>
           <div className="  flex justify-center">
             <button
+              disabled={table.getState().pagination.pageIndex == 0}
               onClick={() => table.setPageIndex(0)}
-              className="w-24 border  border-slate-400 rounded-2xl m-2 hover:bg-lime-400  hover:border-transparent"
+              className="w-24 border  border-slate-400 rounded-2xl m-2 hover:bg-lime-400  hover:border-transparent disabled:cursor-not-allowed"
             >
               First
             </button>
@@ -297,13 +306,41 @@ const MockUser = () => {
             <button
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
               className={`w-24 border border-slate-400 rounded-2xl m-2 hover:bg-lime-400 hover:border-transparent 
-               `}
+               disabled:cursor-not-allowed `}
+              disabled={
+                table.getState().pagination.pageIndex + 1 ==
+                table.getPageCount()
+              }
             >
-              {/* {console.log(table)} */}
               Last
             </button>
           </div>
         </div>
+        <Toaster
+          position="bottom-right"
+          reverseOrder={false}
+          gutter={8}
+          containerClassName=""
+          containerStyle={{}}
+          toastOptions={{
+            // Define default options
+            className: "",
+            duration: 5000,
+            style: {
+              background: "#363636",
+              color: "#fff",
+            },
+
+            // Default options for specific types
+            success: {
+              duration: 3000,
+              theme: {
+                primary: "green",
+                secondary: "black",
+              },
+            },
+          }}
+        />
       </div>
       {openModal && (
         <MockuserAddModal
@@ -318,7 +355,6 @@ const MockUser = () => {
           editData={editData}
           mockData={mockData}
           setMockData={setMockData}
-          index={editIndex}
         />
       )}
     </>

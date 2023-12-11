@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
+import toast from "react-hot-toast";
+
 const MockuserAddModal = ({ close, mockData, setMockData }) => {
+  const notifyAdd = () => toast.success("People added succesfully!");
+  const notifyAlert = () => toast.error("Please fill the data");
+  const notifyUserExist = () => toast.error("User already exist");
+
   const [value, setValue] = useState({
     id: mockData.length + 1,
     first_name: "",
@@ -8,14 +14,33 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
     gender: "",
     email: "",
   });
+
+  const userExist = mockData.some(
+    (person) =>
+      person.first_name.toLowerCase() === value.first_name.toLowerCase()
+  );
+
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setMockData([value, ...mockData]);
-    close();
+
+    if (
+      value.first_name == "" ||
+      value.last_name == "" ||
+      value.email == "" ||
+      value.gender == ""
+    ) {
+      notifyAlert();
+    } else if (userExist) {
+      notifyUserExist();
+    } else {
+      setMockData([value, ...mockData]);
+      close();
+      notifyAdd();
+    }
   };
 
   return (

@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
-const MockuserEditModal = ({
-  close,
-  editData,
-  mockData,
-  setMockData,
-  index,
-}) => {
+import toast from "react-hot-toast";
+
+const MockuserEditModal = ({ close, editData, mockData, setMockData }) => {
+  const notifyEdit = () => toast.success("People edited Successfully");
   const { id, first_name, last_name, email, gender } = editData;
   const [value, setValue] = useState({
     id: id,
@@ -18,20 +15,18 @@ const MockuserEditModal = ({
   // console.log(mockData);
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
-    // console.log(value);
   };
 
-  // console.log(index);
   const handleSubmit = (e) => {
     e.preventDefault();
     const newArray = [...mockData];
     newArray.splice(findEditedIndex, 1, value);
     setMockData(newArray);
     close();
+    notifyEdit();
   };
 
   const findEditedIndex = mockData.findIndex((data) => data.id === id);
-  // console.log(findEditedIndex);
   return (
     <>
       <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-200 bg-opacity-90 z-50">
@@ -93,7 +88,6 @@ const MockuserEditModal = ({
                       <input
                         type="radio"
                         name="gender"
-                        // value={value.gender}
                         value="Male"
                         checked={value.gender === "Male"}
                         onChange={handleChange}
@@ -105,7 +99,6 @@ const MockuserEditModal = ({
                       <input
                         type="radio"
                         name="gender"
-                        // value={value.gender}
                         value="Female"
                         checked={value.gender === "Female"}
                         onChange={handleChange}
