@@ -1,23 +1,37 @@
 import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
-const MockuserAddModal = ({ close, mockData, setMockData }) => {
+const MockuserEditModal = ({
+  close,
+  editData,
+  mockData,
+  setMockData,
+  index,
+}) => {
+  const { id, first_name, last_name, email, gender } = editData;
   const [value, setValue] = useState({
-    id: mockData.length + 1,
-    first_name: "",
-    last_name: "",
-    gender: "",
-    email: "",
+    id: id,
+    first_name: first_name,
+    last_name: last_name,
+    gender: gender,
+    email: email,
   });
+  // console.log(mockData);
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
+    // console.log(value);
   };
 
+  // console.log(index);
   const handleSubmit = (e) => {
     e.preventDefault();
-    setMockData([value, ...mockData]);
+    const newArray = [...mockData];
+    newArray.splice(findEditedIndex, 1, value);
+    setMockData(newArray);
     close();
   };
 
+  const findEditedIndex = mockData.findIndex((data) => data.id === id);
+  // console.log(findEditedIndex);
   return (
     <>
       <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-200 bg-opacity-90 z-50">
@@ -79,23 +93,25 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
                       <input
                         type="radio"
                         name="gender"
+                        // value={value.gender}
                         value="Male"
-                        checked={value.gender == "Male"}
+                        checked={value.gender === "Male"}
                         onChange={handleChange}
                       />
-                      <label htmlFor="male" className="ml-1">
+                      <label htmlFor="Male" className="ml-1">
                         Male
                       </label>
 
                       <input
                         type="radio"
                         name="gender"
+                        // value={value.gender}
                         value="Female"
-                        checked={value.gender == "Female"}
+                        checked={value.gender === "Female"}
                         onChange={handleChange}
                         className="ml-4"
                       />
-                      <label htmlFor="female" className="ml-1">
+                      <label htmlFor="Female" className="ml-1">
                         Female
                       </label>
                     </div>
@@ -117,4 +133,4 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
   );
 };
 
-export default MockuserAddModal;
+export default MockuserEditModal;

@@ -19,6 +19,7 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
+import MockuserEditModal from "./MockuserEditModal";
 const MockUser = () => {
   const data = useMemo(() => mdata, []);
   const [mockData, setMockData] = useState(data);
@@ -28,12 +29,16 @@ const MockUser = () => {
   const [show, setShow] = useState(false);
   const [popoverItemId, setPopoverItemId] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [openEditMoadal, setOpenEditMoadal] = useState(false);
+  const [editData, setEditData] = useState();
+  const [editIndex, setEditIndex] = useState();
 
   const openAddModal = () => {
     setOpenModal(true);
   };
   const close = () => {
     setOpenModal(false);
+    setOpenEditMoadal(false);
   };
 
   const handleDelete = (id) => {
@@ -41,6 +46,13 @@ const MockUser = () => {
     setMockData(deletedData);
     setShow(false);
   };
+
+  const handleEdit = (data, index) => {
+    setOpenEditMoadal(true);
+    setEditData(data);
+    setEditIndex(index);
+  };
+
   const columns = [
     {
       header: "ID",
@@ -95,7 +107,10 @@ const MockUser = () => {
                 <div className="container z-10 absolute   -translate-y-6 border border-slate-400 rounded-lg   w-16   flex justify-center       bg-white ">
                   <div className="div flex items-center  py-1 justify-around">
                     <button>
-                      <BiMessageSquareEdit className="text-orange-700" />
+                      <BiMessageSquareEdit
+                        className="text-orange-700"
+                        onClick={() => handleEdit(row.original, row.index)}
+                      />
                     </button>
                     <button>
                       <MdDelete
@@ -284,6 +299,7 @@ const MockUser = () => {
               className={`w-24 border border-slate-400 rounded-2xl m-2 hover:bg-lime-400 hover:border-transparent 
                `}
             >
+              {/* {console.log(table)} */}
               Last
             </button>
           </div>
@@ -294,6 +310,15 @@ const MockUser = () => {
           close={close}
           mockData={mockData}
           setMockData={setMockData}
+        />
+      )}
+      {openEditMoadal && (
+        <MockuserEditModal
+          close={close}
+          editData={editData}
+          mockData={mockData}
+          setMockData={setMockData}
+          index={editIndex}
         />
       )}
     </>
