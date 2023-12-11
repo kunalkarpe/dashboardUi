@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
-const MockuserAddModal = ({ close, mockData }) => {
+const MockuserAddModal = ({ close, mockData, setMockData }) => {
   const [value, setValue] = useState({
     id: mockData.length + 1,
     first_name: "",
@@ -9,9 +9,15 @@ const MockuserAddModal = ({ close, mockData }) => {
     email: "",
   });
   const handleChange = (e) => {
-    setValue({ [e.target.name]: e.target.value });
-    console.log(value);
+    setValue({ ...value, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setMockData([...mockData, value]);
+    close();
+  };
+
   return (
     <>
       <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-200 bg-opacity-90 z-50">
@@ -27,11 +33,11 @@ const MockuserAddModal = ({ close, mockData }) => {
               <IoCloseSharp />
             </button>{" "}
             <div className="-top-20">
-              <form action="submit" method="post" onSubmit={console.log(value)}>
+              <form action="" method="post" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-10 py-2">
                   <div className="col-span-8 mx-12 px-2 ">
                     <input
-                      name="name"
+                      name="first_name"
                       value={value.first_name}
                       type="text"
                       placeholder="Enter your first name.. "
@@ -43,7 +49,7 @@ const MockuserAddModal = ({ close, mockData }) => {
                 <div className="grid grid-cols-10 py-2">
                   <div className="col-span-8 mx-12 px-2 ">
                     <input
-                      name="name"
+                      name="last_name"
                       value={value.last_name}
                       type="text"
                       placeholder="Enter your last name.. "
@@ -72,7 +78,7 @@ const MockuserAddModal = ({ close, mockData }) => {
                     <div className="mt-2">
                       <input
                         type="radio"
-                        name="male"
+                        name="gender"
                         value="male"
                         checked={value.gender == "male"}
                         onChange={handleChange}
@@ -83,7 +89,7 @@ const MockuserAddModal = ({ close, mockData }) => {
 
                       <input
                         type="radio"
-                        name="female"
+                        name="gender"
                         value="female"
                         checked={value.gender == "female"}
                         onChange={handleChange}

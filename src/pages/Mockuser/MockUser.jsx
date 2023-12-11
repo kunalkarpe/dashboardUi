@@ -35,6 +35,12 @@ const MockUser = () => {
   const close = () => {
     setOpenModal(false);
   };
+
+  const handleDelete = (id) => {
+    const deletedData = mockData.filter((data) => data.id !== id);
+    setMockData(deletedData);
+    setShow(false);
+  };
   const columns = [
     {
       header: "ID",
@@ -92,7 +98,10 @@ const MockUser = () => {
                       <BiMessageSquareEdit className="text-orange-700" />
                     </button>
                     <button>
-                      <MdDelete className="text-red-700" />
+                      <MdDelete
+                        className="text-red-700"
+                        onClick={() => handleDelete(row.original.id)}
+                      />
                     </button>
                   </div>
                 </div>
@@ -280,7 +289,13 @@ const MockUser = () => {
           </div>
         </div>
       </div>
-      {openModal && <MockuserAddModal close={close} mockData={mockData} />}
+      {openModal && (
+        <MockuserAddModal
+          close={close}
+          mockData={mockData}
+          setMockData={setMockData}
+        />
+      )}
     </>
   );
 };
