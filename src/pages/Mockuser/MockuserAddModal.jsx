@@ -1,43 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
 
 const MockuserAddModal = ({ close, mockData, setMockData }) => {
   const notifyAdd = () => toast.success("People added succesfully!");
   const notifyAlert = () => toast.error("Please fill the data");
   const notifyUserExist = () => toast.error("User already exist");
+  const { register, handleSubmit } = useForm();
 
-  const [value, setValue] = useState({
-    id: mockData.length + 1,
-    first_name: "",
-    last_name: "",
-    gender: "",
-    email: "",
-  });
-
-  const userExist = mockData.some(
-    (person) =>
-      person.first_name.toLowerCase() === value.first_name.toLowerCase()
-  );
-
-  const handleChange = (e) => {
-    setValue({ ...value, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const onSubmit = (data) => {
+    // console.log(data);
+    const userExist = mockData.some(
+      (person) =>
+        person.first_name.toLowerCase() === data.first_name.toLowerCase()
+    );
     if (
-      value.first_name == "" ||
-      value.last_name == "" ||
-      value.email == "" ||
-      value.gender == ""
+      data.first_name == "" ||
+      data.last_name == "" ||
+      data.email == "" ||
+      data.gender == ""
     ) {
       notifyAlert();
     } else if (userExist) {
       notifyUserExist();
+      close();
     } else {
-      setMockData([value, ...mockData]);
+      setMockData([data, ...mockData]);
       close();
       notifyAdd();
     }
@@ -58,16 +47,18 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
               <IoCloseSharp />
             </button>{" "}
             <div className="-top-20">
-              <form action="" method="post" onSubmit={handleSubmit}>
+              <form method="post" onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-10 py-2">
                   <div className="col-span-8 mx-12 px-2 ">
                     <input
                       name="first_name"
-                      value={value.first_name}
+                      {...register("first_name", {
+                        required: true,
+                        minLength: 3,
+                      })}
                       type="text"
                       placeholder="Enter your first name.. "
                       className="border border-slate-300 rounded-lg ps-2 h-10 w-56"
-                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -75,11 +66,10 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
                   <div className="col-span-8 mx-12 px-2 ">
                     <input
                       name="last_name"
-                      value={value.last_name}
+                      {...register("last_name")}
                       type="text"
                       placeholder="Enter your last name.. "
                       className="border border-slate-300 rounded-lg ps-2 h-10 w-56"
-                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -87,11 +77,10 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
                   <div className="col-span-4 mx-12 px-2">
                     <input
                       name="email"
-                      value={value.email}
+                      {...register("email")}
                       type="email"
                       placeholder="Enter your email"
                       className="border border-slate-300 rounded-lg ps-2  h-10 w-56"
-                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -103,10 +92,8 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
                     <div className="mt-2">
                       <input
                         type="radio"
-                        name="gender"
+                        {...register("gender")}
                         value="Male"
-                        checked={value.gender == "Male"}
-                        onChange={handleChange}
                       />
                       <label htmlFor="male" className="ml-1">
                         Male
@@ -114,10 +101,8 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
 
                       <input
                         type="radio"
-                        name="gender"
+                        {...register("gender")}
                         value="Female"
-                        checked={value.gender == "Female"}
-                        onChange={handleChange}
                         className="ml-4"
                       />
                       <label htmlFor="female" className="ml-1">

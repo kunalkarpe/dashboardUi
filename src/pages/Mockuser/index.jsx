@@ -4,6 +4,11 @@ import { FaFemale } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { BiMessageSquareEdit } from "react-icons/bi";
 import MockuserAddModal from "./MockuserAddModal";
+import MockuserEditModal from "./MockuserEditModal";
+import Nav from "@src/Components/Navbar/Nav";
+import Sidebar from "@src/Components/Sidebar/Sidebar";
+import useMockUser from "./hooks/useMockuser";
+import MockUserTable from "./MockUserTable";
 import {
   useReactTable,
   getCoreRowModel,
@@ -11,14 +16,8 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import MockuserEditModal from "./MockuserEditModal";
-import Nav from "@src/Components/Navbar/Nav";
-import Sidebar from "@src/Components/Sidebar/Sidebar";
-import useMockUser from "./hooks/useMockuser";
-import MockUserTable from "./MockUserTable";
 const MockUser = () => {
   const {
-    data,
     handleEdit,
     handleDelete,
     togglePopover,
@@ -33,6 +32,7 @@ const MockUser = () => {
     setFiltering,
     toogle,
     show,
+    setShow,
     openModal,
     editData,
     openEditMoadal,
@@ -43,6 +43,13 @@ const MockUser = () => {
     {
       header: "ID",
       accessorKey: "id",
+      cell: ({ row }) => {
+        return (
+          <>
+            <span>{row.index + 1}</span>
+          </>
+        );
+      },
     },
     {
       header: "First Name",
@@ -123,7 +130,6 @@ const MockUser = () => {
       },
     },
   ];
-
   const table = useReactTable({
     data: mockData,
     columns,
@@ -138,12 +144,10 @@ const MockUser = () => {
     onSortingChange: setSorting,
     onGlobalFilteringChange: setFiltering,
   });
-
   return (
     <>
       <Nav />
       <Sidebar />
-
       <MockUserTable
         table={table}
         filtering={filtering}
@@ -165,6 +169,7 @@ const MockUser = () => {
           editData={editData}
           mockData={mockData}
           setMockData={setMockData}
+          setShow={setShow}
         />
       )}
     </>

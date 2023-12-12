@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import mdata from "@src/MocakData/MOCK_DATA";
+import mdata from "@src/pages/Mockuser/MocakData/MOCK_DATA";
 import toast from "react-hot-toast";
 
 function useMockUser() {
@@ -67,6 +67,7 @@ function useMockUser() {
     setFiltering,
     toogle,
     show,
+    setShow,
     openModal,
     editData,
     openEditMoadal,

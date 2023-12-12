@@ -133,7 +133,7 @@ const Sidebar = () => {
                     >
                       <Link to={items.path}>
                         <button
-                          className={` hover:bg-lime-300 lg:py-2 lg:pr-8 md:py-1 md:pr-6 sm:pr-2 sm:pl-0 sm:py-1.5  hover:rounded-xl   border border-transparent md:${
+                          className={` hover:bg-lime-300 lg:py -2 lg:pr-8 md:py-1 md:pr-6 sm:pr-2 sm:pl-0 sm:py-1.5  hover:rounded-xl   border border-transparent md:${
                             !toggle ? " w-[2vw]" : "w-[16vw]"
                           } sm:${
                             !toggle ? " w-[4vw]" : "w-[16vw]"

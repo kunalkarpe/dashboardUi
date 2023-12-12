@@ -40,7 +40,7 @@ const MockUserTable = ({
               <div className="p-1  border-b-2  mb-2 flex items-center justify-center">
                 <label>Toggle </label>
               </div>
-              {table.getAllLeafColumns().map((column) => {
+              {table.getAllLeafColumns().map((column, index) => {
                 return (
                   <div key={column.id} className="px-1">
                     <label>
@@ -90,7 +90,7 @@ const MockUserTable = ({
                 ))}
               </thead>
               <tbody className="  p-2">
-                {table.getRowModel().rows.map((row, index) => (
+                {table.getRowModel().rows.map((row) => (
                   <tr className={`   rounded-2xl  p-2  `} key={row.id}>
                     {row.getVisibleCells().map((cell) => (
                       <td className={`  p-2  `} key={cell.id}>

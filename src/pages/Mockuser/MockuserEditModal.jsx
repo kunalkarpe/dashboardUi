@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
 
-const MockuserEditModal = ({ close, editData, mockData, setMockData }) => {
+const MockuserEditModal = ({
+  close,
+  editData,
+  mockData,
+  setMockData,
+  setShow,
+}) => {
   const notifyEdit = () => toast.success("People edited Successfully");
   const { id, first_name, last_name, email, gender } = editData;
   const [value, setValue] = useState({
@@ -23,6 +29,7 @@ const MockuserEditModal = ({ close, editData, mockData, setMockData }) => {
     setMockData(newArray);
     close();
     notifyEdit();
+    setShow(false);
   };
 
   const findEditedIndex = mockData.findIndex((data) => data.id === id);

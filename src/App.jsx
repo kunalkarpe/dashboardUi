@@ -38,7 +38,7 @@ function App() {
               path="/user"
               element={
                 <ProtectedRoute>
-                  <User />
+                  <MockUser />
                 </ProtectedRoute>
               }
             />
