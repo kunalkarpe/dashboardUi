@@ -12,7 +12,6 @@ const MockuserEditModal = ({ close, editData, mockData, setMockData }) => {
     gender: gender,
     email: email,
   });
-  // console.log(mockData);
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
   };

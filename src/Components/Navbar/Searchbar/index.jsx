@@ -20,6 +20,7 @@ const SearchBar = () => {
     query,
     inputRef,
   } = useSearchBar();
+  
   useEffect(() => {
     if (selected) {
       navigate(selected.path);
