@@ -16,11 +16,9 @@ const TeamMembers = () => {
     handleUpdate,
     closeEdit,
     show,
-
     edit,
     passData,
   } = useTeamMembers();
-  console.log(response);
   return (
     <>
       <section className="flex bg-white lg:mt-4 lg:mb-2 lg:ms-3 rounded-xl lg:w-[16.5vw] md:w-[35vw] md:ms-0 md:me-2 sm:w-[35vw] sm:ms-0 sm:me-2 md:h-fit border border-transparent">

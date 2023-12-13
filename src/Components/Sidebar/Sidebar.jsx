@@ -8,7 +8,7 @@ import { IoMdSettings } from "react-icons/io";
 import girl from "../../assets/girl.avif";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import useFetchUser from "@src/CustomHooksLogin/usefetchData";
+import useFetchUser from "@src/Components/Navbar/Hooks/usefetchData";
 
 const Sidebar = () => {
   const { service } = useFetchUser();

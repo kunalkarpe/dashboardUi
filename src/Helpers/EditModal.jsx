@@ -2,7 +2,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { GrFormClose } from "react-icons/gr";
-import { updateMembers } from "../Api/api";
+import { updateMembers } from "../Components/Sections/Api/api";
 import { useQueryClient } from "@tanstack/react-query";
 
 const EditModal = ({ closed, data }) => {

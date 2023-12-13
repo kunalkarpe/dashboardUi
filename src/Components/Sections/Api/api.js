@@ -1,4 +1,4 @@
-import axiosInstance from "../lib/axios";
+import axiosInstance from "../../../lib/axios";
 export async function fetchMembers() {
   const result = await axiosInstance.get("?page=1&per_page=4");
   const res = await result.data;

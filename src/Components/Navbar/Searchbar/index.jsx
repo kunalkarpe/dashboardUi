@@ -2,9 +2,7 @@ import { IoIosSearch } from "react-icons/io";
 import { Fragment, useState } from "react";
 import useSearchBar from "./useSearchBar";
 import { Combobox, Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import data from "./searchBar.constants";
 import { useEffect } from "react";
 const SearchBar = () => {
   const [show, setShow] = useState(false);
@@ -20,7 +18,7 @@ const SearchBar = () => {
     query,
     inputRef,
   } = useSearchBar();
-  
+
   useEffect(() => {
     if (selected) {
       navigate(selected.path);

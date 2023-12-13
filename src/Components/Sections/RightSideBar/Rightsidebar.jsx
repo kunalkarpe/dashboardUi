@@ -2,7 +2,7 @@ import { AiTwotoneVideoCamera } from "react-icons/ai";
 import boy1 from "../../../assets/boy1.avif";
 import boy2 from "../../../assets/boy2.jpg";
 import boy3 from "../../../assets/boy3.jpg";
-import TeamMembers from "./Teammembers";
+import TeamMembers from "@src/Components/Sections/RightSideBar/TeamMembers/index";
 const Rightsidebar = () => {
   return (
     <>

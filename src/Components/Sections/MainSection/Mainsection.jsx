@@ -1,9 +1,9 @@
-import Earning from "./Earning";
-import Regularsale from "./Regularsale";
-import Topstore from "./Topstore";
-import Rightsidebar from "./RightSideBar/Rightsidebar";
-import Nav from "../Navbar/Nav";
-import Sidebar from "../Sidebar/Sidebar";
+import Earning from "../Earning";
+import Regularsale from "../Regularsale";
+import Topstore from "../Topstore";
+import Rightsidebar from "../RightSideBar/Rightsidebar";
+import Nav from "../../Navbar/Nav";
+import Sidebar from "../../Sidebar/Sidebar";
 
 const Mainsection = () => {
   return (

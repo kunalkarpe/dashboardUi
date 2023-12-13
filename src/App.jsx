@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import User from "./Components/Sections/JSONplaceholderUser";
 import ProtectedRoute from "./Helpers/ProtectedRoute";
 import Login from "./pages/Login/index";
-import Userdetails from "@src/Components/Sections/SingleUserPage/Userdetails";
+import Userdetails from "@src/Components/Sections/SingleUserPage";
 import { Suspense } from "react";
 import { lazy } from "react";
 import MockUser from "./pages/Mockuser";

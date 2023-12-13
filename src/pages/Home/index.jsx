@@ -1,7 +1,7 @@
 // import { Route, Routes } from "react-router-dom";
 import Nav from "../../Components/Navbar/Nav";
 import Sidebar from "../../Components/Sidebar/Sidebar";
-import Mainsection from "../../Components/Sections/Mainsection";
+import Mainsection from "../../Components/Sections/MainSection/Mainsection";
 // import { Link, Route, Routes } from "react-router-dom";
 // import User from "../../Components/Sections/JSONplaceholderUser";
 

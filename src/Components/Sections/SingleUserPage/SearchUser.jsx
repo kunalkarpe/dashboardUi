@@ -4,15 +4,15 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { LuChevronsUpDown } from "react-icons/lu";
 import { Combobox, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchMembers } from "@src/Api/api";
+import { fetchMembers } from "@src/Components/Sections/Api/api";
 const SearchUser = () => {
   const [query, setQuery] = useState("");
   const { id } = useParams();
   const [selected, setSelected] = useState("");
   const {
-    data: allmembers,
     isLoading,
     isError,
+    data: allmembers,
   } = useQuery({
     queryKey: ["listkey"],
     queryFn: fetchMembers,
@@ -40,12 +40,7 @@ const SearchUser = () => {
   return (
     <>
       <section className="relative   w-[28vw] border border-transparent  rounded-2xl mt-4 ">
-        <Combobox
-          value={selected}
-          onChange={(e) => {
-            console.log(e);
-          }}
-        >
+        <Combobox value={selected}>
           <div className="relative mt-1">
             <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
               <Combobox.Label className=" font-semibold pb-2">

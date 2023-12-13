@@ -1,13 +1,22 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { fetchMembers } from "@src/Components/Sections/Api/api";
 
 const SearchSingleUser = () => {
   const { id } = useParams();
-  const queryCLient = useQueryClient();
-  const list = queryCLient.getQueryData(["listkey"]);
+  const {
+    isLoading,
+    isError,
+    data: list,
+  } = useQuery({
+    queryKey: ["listkey"],
+    queryFn: fetchMembers,
+  });
 
-  const singleMember = list.filter((member) => member.id == id);
+  const singleMember = list?.find((member) => member.id == id);
 
+  if (isLoading) return "Pending";
+  if (isError) return "Error";
   return (
     <>
       <section className="flex border border-transparent  mt-20 p-2">

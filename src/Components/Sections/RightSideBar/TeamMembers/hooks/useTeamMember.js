@@ -47,10 +47,10 @@ function useTeamMembers() {
   const closeEdit = () => {
     setEdit(false);
   };
+
   if (isPending) return "Pending";
   if (isError) return "Error";
-  console.log(response);
-  if (isSuccess)
+  if (isSuccess) {
     return {
       response,
       handleDelete,
@@ -62,6 +62,7 @@ function useTeamMembers() {
       edit,
       passData,
     };
+  }
 }
 
 export default useTeamMembers;

@@ -8,7 +8,7 @@ import MockuserEditModal from "./MockuserEditModal";
 import Nav from "@src/Components/Navbar/Nav";
 import Sidebar from "@src/Components/Sidebar/Sidebar";
 import useMockUser from "./hooks/useMockuser";
-import MockUserTable from "./MockUserTable";
+import MockUserTable from "./MockuserTable";
 import {
   useReactTable,
   getCoreRowModel,
@@ -46,7 +46,7 @@ const MockUser = () => {
       cell: ({ row }) => {
         return (
           <>
-            <span>{row.index + 1}</span>
+            <span>{row.index + 1}</span> 
           </>
         );
       },

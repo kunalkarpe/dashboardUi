@@ -6,17 +6,17 @@ import Modal from "@src/Helpers/Modal";
 import { Link, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { fetchMembers, deleteMembers } from "@src/Api/api";
+import { fetchMembers, deleteMembers } from "@src/Components/Sections/Api/api";
 const AllUserList = () => {
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState(false);
   const [passData, setPassData] = useState({});
   const { id } = useParams();
-  const queryClient = useQueryClient;
+  const queryClient = useQueryClient();
   const {
-    data: allmembers,
     isLoading,
     isError,
+    data: allmembers,
   } = useQuery({
     queryKey: ["listkey"],
     queryFn: fetchMembers,
@@ -30,7 +30,8 @@ const AllUserList = () => {
       console.log(error);
     },
   });
-
+  if (isLoading) return "Loading";
+  if (isError) return "Error";
   const handleUpdate = (data) => {
     setEdit(true);
     setPassData(data);
@@ -48,8 +49,7 @@ const AllUserList = () => {
   const openModal = () => {
     setShow(true);
   };
-  if (isLoading) return "Loading";
-  if (isError) return "Error";
+
   return (
     <>
       <section className="container mt-5 border border-transparent px-1 flex flex-col">
