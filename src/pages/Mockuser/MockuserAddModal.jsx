@@ -5,7 +5,24 @@ import NotifyAdd from "./Toast/Addtoast";
 import Error from "./Toast/Error";
 
 const MockuserAddModal = ({ close, mockData, setMockData }) => {
-  const onSubmit = (data) => {
+  const imgUrlConvert = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const imgReader = reader.result;
+        resolve(imgReader);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const onSubmit = async (data) => {
+    if (data.image[0]) {
+      const imageUrl = await imgUrlConvert(data.image[0]);
+      data = { ...data, image: imageUrl };
+    }
+
     const userExist = mockData.some(
       (person) =>
         person.first_name.toLowerCase() === data.first_name.toLowerCase()
@@ -55,6 +72,10 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
         { value: "Male", label: "Male" },
         { value: "Female", label: "Female" },
       ],
+    },
+    {
+      name: "image",
+      type: "file",
     },
   ];
   return (

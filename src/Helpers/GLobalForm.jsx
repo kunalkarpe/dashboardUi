@@ -73,6 +73,8 @@ const GlobalForm = ({ onSubmit, inputFields, defaultValues }) => {
           );
         })}
 
+         
+
         <button
           className="border border-transparent   rounded-lg bg-lime-300   mt-4 w-44  mx-20"
           type="submit"

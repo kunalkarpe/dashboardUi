@@ -35,6 +35,7 @@ const MockUserTable = ({
           >
             <FaFilter />
           </button>
+
           {toogle ? (
             <div className="absolute z-20 border border-slate-400 w-32 bg-white ms-72  -mt-10 h-fit  shadow rounded">
               <div className="p-1  border-b-2  mb-2 flex items-center justify-center">
