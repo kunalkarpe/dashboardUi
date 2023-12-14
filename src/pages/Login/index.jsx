@@ -1,11 +1,32 @@
 import useLogin from "./hooks/useLogin";
 import loginImage from "../../Ui/Images/login.jpg";
+import GlobalForm from "@src/Helpers/GLobalForm";
 
 const Login = () => {
-  const { data, handleLogin, handleChange } = useLogin();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleLogin();
+  const { loginMutation } = useLogin();
+  const defaultValues = {
+    email: "",
+    password: "",
+    device_name: "MacIntel",
+  };
+  const inputFields = [
+    {
+      name: "email",
+      type: "email",
+      placeholder: "Enter your  email... ",
+      pattern: {
+        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+        message: "Invalid email address",
+      },
+    },
+    {
+      name: "password",
+      type: "password",
+      placeholder: "Enter your password",
+    },
+  ];
+  const onSubmit = (data) => {
+    loginMutation.mutate(data);
   };
 
   return (
@@ -21,38 +42,12 @@ const Login = () => {
             <div className="flex     -mt-12 ">
               <h2 className="text-lg font-bold px-2     font-roboto">Login</h2>
             </div>
-            <div className="flex flex-col mt-12 ">
-              <label htmlFor="Email ">
-                Email:{" "}
-                <input
-                  type="text"
-                  name="email"
-                  value={data.email}
-                  placeholder="Enter your email"
-                  className="border border-transaprent rounded-lg ms-8 p-1"
-                  required
-                  onChange={handleChange}
-                />
-              </label>
-              <label htmlFor="Password">
-                Password:
-                <input
-                  type="password"
-                  name="password"
-                  value={data.password}
-                  placeholder="Enter your password"
-                  className="border border-transaprent rounded-lg ms-2 p-1 mt-4"
-                  required
-                  onChange={handleChange}
-                />
-              </label>
-              <button
-                className="border border-transparent text-black p-1 rounded-lg ms-20 bg-lime-300 w-[8vw]  mt-12"
-                onClick={handleSubmit}
-              >
-                Submit
-              </button>
-            </div>
+
+            <GlobalForm
+              onSubmit={onSubmit}
+              defaultValues={defaultValues}
+              inputFields={inputFields}
+            />
           </div>
           <div className="flex w-[40vw] h-[77vh] border border-transparent">
             <img src={loginImage} alt="" />

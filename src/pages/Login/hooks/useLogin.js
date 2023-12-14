@@ -7,11 +7,11 @@ function useLogin() {
   const navigate = useNavigate();
 
   //   State's
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-    device_name: "MacIntel",
-  });
+  // const [data, setData] = useState({
+  //   email: "",
+  //   password: "",
+  //   device_name: "MacIntel",
+  // });
 
   // Query's
 
@@ -25,15 +25,7 @@ function useLogin() {
     },
   });
 
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
-
-  const handleLogin = () => {
-    loginMutation.mutate(data);
-  };
-
-  return { handleLogin, data, handleChange };
+  return { loginMutation};
 }
 
 export default useLogin;

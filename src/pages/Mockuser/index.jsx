@@ -46,7 +46,22 @@ const MockUser = () => {
       cell: ({ row }) => {
         return (
           <>
-            <span>{row.index + 1}</span> 
+            <span>{row.index + 1}</span>
+          </>
+        );
+      },
+    },
+    {
+      header: "Images",
+      accessorKey: "img",
+      cell: () => {
+        return (
+          <>
+            <div className="container">
+              <div className="flex border border-black rounded-full   justify-center">
+                For Images
+              </div>
+            </div>
           </>
         );
       },
@@ -71,13 +86,13 @@ const MockUser = () => {
           <>
             <span
               className={`${
-                row.original.gender == "Male"
-                  ? "text-orange-600"
-                  : "text-gray-600"
-              } ${
-                row.original.gender == "Female"
-                  ? "text-lime-600"
-                  : "text-gray-600"
+                row.original.gender == "Male" ? "text-orange-600" : " "
+              } ${row.original.gender == "Female" ? "text-lime-600" : " "}
+              ${
+                row.original.gender !== "Male" &&
+                row.original.gender !== "Female"
+                  ? "text-amber-600"
+                  : " "
               }`}
             >
               <div className="flex items-center">
