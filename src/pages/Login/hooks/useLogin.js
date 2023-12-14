@@ -10,7 +10,7 @@ function useLogin() {
   const [data, setData] = useState({
     email: "",
     password: "",
-    device_name: "windows",
+    device_name: "MacIntel",
   });
 
   // Query's

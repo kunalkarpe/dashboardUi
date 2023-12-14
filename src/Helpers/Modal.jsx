@@ -12,12 +12,6 @@ const Modal = ({ close }) => {
     },
   });
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
-
   const onSubmit = (data) => {
     createMutation.mutate(data);
     close();

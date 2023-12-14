@@ -1,12 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const GlobalForm = ({ onSubmit, inputFields }) => {
+const GlobalForm = ({ onSubmit, inputFields, defaultValues }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: defaultValues });
   return (
     <>
       <form method="post" onSubmit={handleSubmit(onSubmit)}>
@@ -36,7 +36,7 @@ const GlobalForm = ({ onSubmit, inputFields }) => {
                         {fields?.options.map((data) => {
                           return (
                             <>
-                              <option value={data.value}>{data.value}</option>
+                              <option value={data.value}>{data.label}</option>
                             </>
                           );
                         })}

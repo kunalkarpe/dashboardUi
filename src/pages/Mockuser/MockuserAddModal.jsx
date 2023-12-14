@@ -52,8 +52,8 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
       name: "gender",
       type: "select",
       options: [
-        { value: "male", label: "Male" },
-        { value: "female", label: "Female" },
+        { value: "Male", label: "Male" },
+        { value: "Female", label: "Female" },
       ],
     },
   ];

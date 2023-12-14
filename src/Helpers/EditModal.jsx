@@ -1,21 +1,58 @@
 /* eslint-disable react/prop-types */
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { updateMembers } from "../Components/Sections/Api/api";
 import { useQueryClient } from "@tanstack/react-query";
+import GlobalForm from "./GLobalForm";
 
 const EditModal = ({ closed, data }) => {
   const queryClient = useQueryClient();
   // eslint-disable-next-line react/prop-types
   const { name, email, gender, status, id } = data;
-  const [value, setValue] = useState({
+  const defaultValues = {
     id: id,
     name: name,
     email: email,
     gender: gender,
     status: status,
-  });
+  };
+  const inputFields = [
+    {
+      name: "name",
+      type: "text",
+      placeholder: "Enter your first name... ",
+      pattern: {
+        value: /^[a-zA-Z\s]+$/,
+        message: "Cannot use numbers and special character in Name",
+      },
+    },
+
+    {
+      name: "email",
+      type: "email",
+      placeholder: "Enter your  email... ",
+      pattern: {
+        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+        message: "Invalid email address",
+      },
+    },
+    {
+      name: "gender",
+      type: "select",
+      options: [
+        { value: "male", label: "Male" },
+        { value: "female", label: "Female" },
+      ],
+    },
+    {
+      name: "status",
+      type: "select",
+      options: [
+        { value: "active", label: "Active" },
+        { value: "inactive", label: "Inactive" },
+      ],
+    },
+  ];
 
   const updateMutation = useMutation({
     mutationFn: updateMembers,
@@ -23,9 +60,7 @@ const EditModal = ({ closed, data }) => {
       queryClient.invalidateQueries({ queryKey: ["listkey"] });
     },
   });
-  const handleChange = (e) => {
-    setValue({ ...value, [e.target.name]: e.target.value });
-  };
+
   const handleSubmit = (value, id) => {
     updateMutation.mutate({ id, ...value });
     closed();
@@ -45,7 +80,7 @@ const EditModal = ({ closed, data }) => {
               <GrFormClose />
             </button>{" "}
             <div className="-top-20">
-              <form
+              {/* <form
                 action=""
                 method="post"
                 onSubmit={() => handleSubmit(value, value.id)}
@@ -141,7 +176,12 @@ const EditModal = ({ closed, data }) => {
                 >
                   <p className="p-0.5 font-roboto">Submit</p>{" "}
                 </button>
-              </form>
+              </form> */}
+              <GlobalForm
+                onSubmit={handleSubmit}
+                defaultValues={defaultValues}
+                inputFields={inputFields}
+              />
             </div>
           </div>
         </div>

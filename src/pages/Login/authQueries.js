@@ -2,7 +2,7 @@ import axios from "axios";
 const loginMembers = async (value) => {
   try {
     const response = await axios.post(
-      " https://uatapicorporatetravel.fynity.in/api/login",
+      " https://uatapicorporatetravel.fynity.in/api/sellers/login",
       value,
       {
         headers: {

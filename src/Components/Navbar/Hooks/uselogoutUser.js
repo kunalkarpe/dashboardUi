@@ -4,7 +4,7 @@ function useLogout() {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        "https://uatapicorporatetravel.fynity.in/api/logout",
+        "https://uatapicorporatetravel.fynity.in/api/sellers/logout",
         {
           headers: {
             "Content-Type": "application/json",

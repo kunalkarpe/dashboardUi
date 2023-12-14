@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Edittoast from "./Toast/Edittoast";
 import { IoIosClose } from "react-icons/io";
-
+import GlobalForm from "@src/Helpers/GLobalForm";
 const MockuserEditModal = ({
   close,
   editData,
@@ -10,28 +10,61 @@ const MockuserEditModal = ({
   setShow,
 }) => {
   const { id, first_name, last_name, email, gender } = editData;
-  const [value, setValue] = useState({
-    id: id,
-    first_name: first_name,
-    last_name: last_name,
-    gender: gender,
-    email: email,
-  });
-  const handleChange = (e) => {
-    setValue({ ...value, [e.target.name]: e.target.value });
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const defaultValues = {
+    first_name: first_name || "",
+    last_name: last_name || "",
+    gender: gender || "",
+    email: email || "",
+  };
+  const inputFields = [
+    {
+      name: "first_name",
+      type: "text",
+      placeholder: "Enter your first name... ",
+      pattern: {
+        value: /^[a-zA-Z\s]+$/,
+        message: "Cannot use numbers and special character in Name",
+      },
+    },
+    {
+      name: "last_name",
+      type: "text",
+      placeholder: "Enter your last name...",
+      pattern: {
+        value: /^[a-zA-Z\s]+$/,
+        message: "Cannot use numbers and special character in Name",
+      },
+    },
+    {
+      name: "email",
+      type: "email",
+      placeholder: "Enter your  email... ",
+      pattern: {
+        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+        message: "Invalid email address",
+      },
+    },
+    {
+      name: "gender",
+      type: "select",
+      options: [
+        { value: "Male", label: "Male" },
+        { value: "Female", label: "Female" },
+      ],
+    },
+  ];
+
+  const findEditedIndex = mockData.findIndex((member) => member.id === id);
+  const onSubmit = (data) => {
     const newArray = [...mockData];
-    newArray.splice(findEditedIndex, 1, value);
+    newArray.splice(findEditedIndex, 1, data);
     setMockData(newArray);
     close();
     Edittoast();
     setShow(false);
   };
 
-  const findEditedIndex = mockData.findIndex((data) => data.id === id);
   return (
     <>
       <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-200 bg-opacity-90 z-50">
@@ -46,84 +79,11 @@ const MockuserEditModal = ({
             >
               <IoIosClose />
             </button>{" "}
-            <div className="-top-20">
-              <form action="" method="post" onSubmit={handleSubmit}>
-                <div className="grid grid-cols-10 py-2">
-                  <div className="col-span-8 mx-12 px-2 ">
-                    <input
-                      name="first_name"
-                      value={value.first_name}
-                      type="text"
-                      placeholder="Enter your first name.. "
-                      className="border border-slate-300 rounded-lg ps-2 h-10 w-56"
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-10 py-2">
-                  <div className="col-span-8 mx-12 px-2 ">
-                    <input
-                      name="last_name"
-                      value={value.last_name}
-                      type="text"
-                      placeholder="Enter your last name.. "
-                      className="border border-slate-300 rounded-lg ps-2 h-10 w-56"
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-10 py-2">
-                  <div className="col-span-4 mx-12 px-2">
-                    <input
-                      name="email"
-                      value={value.email}
-                      type="email"
-                      placeholder="Enter your email"
-                      className="border border-slate-300 rounded-lg ps-2  h-10 w-56"
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="flex ">
-                  <div className="col-span-4 mx-12 px-2">
-                    <label className="border-b-2  border-slate-300">
-                      Select Gender
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        type="radio"
-                        name="gender"
-                        value="Male"
-                        checked={value.gender === "Male"}
-                        onChange={handleChange}
-                      />
-                      <label htmlFor="Male" className="ml-1">
-                        Male
-                      </label>
-
-                      <input
-                        type="radio"
-                        name="gender"
-                        value="Female"
-                        checked={value.gender === "Female"}
-                        onChange={handleChange}
-                        className="ml-4"
-                      />
-                      <label htmlFor="Female" className="ml-1">
-                        Female
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  className="border border-transparent   rounded-lg bg-lime-300   mt-4 w-44  mx-20"
-                  type="submit"
-                >
-                  <p className="p-0.5 font-roboto">Submit</p>{" "}
-                </button>
-              </form>
-            </div>
+            <GlobalForm
+              onSubmit={onSubmit}
+              inputFields={inputFields}
+              defaultValues={defaultValues}
+            />
           </div>
         </div>
       </div>
