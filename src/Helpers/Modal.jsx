@@ -1,7 +1,4 @@
 import { GrFormClose } from "react-icons/gr";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import GlobalForm from "./GLobalForm";
 import { createMembers } from "../Components/Sections/Api/api";
@@ -15,23 +12,11 @@ const Modal = ({ close }) => {
     },
   });
 
-  const schema = yup.object().shape({
-    name: yup.string().required("First Name is Required!"),
-    email: yup.string().email().required("Email is Required!"),
-    gender: yup
-      .string()
-      .oneOf(["male", "female"])
-      .required("Please select gender!"),
-    status: yup
-      .string()
-      .oneOf(["Active", "Inactive"])
-      .required("Please select status!"),
-  });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm();
 
   const onSubmit = (data) => {
     createMutation.mutate(data);
@@ -43,16 +28,24 @@ const Modal = ({ close }) => {
       name: "name",
       type: "text",
       placeholder: "Enter your  name... ",
+      pattern: {
+        value: /^[a-zA-Z\s]+$/,
+        message: "Cannot use numbers and special character in Name",
+      },
     },
 
     {
       name: "email",
       type: "email",
       placeholder: "Enter your  email... ",
+      pattern: {
+        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+        message: "Invalid email address",
+      },
     },
     {
       name: "gender",
-      type: "radio",
+      type: "select",
       options: [
         { value: "male", label: "Male" },
         { value: "female", label: "Female" },
@@ -60,7 +53,7 @@ const Modal = ({ close }) => {
     },
     {
       name: "status",
-      type: "radio",
+      type: "select",
       options: [
         { value: "Active", label: "Active" },
         { value: "Inactive", label: "Inactive" },
@@ -83,11 +76,7 @@ const Modal = ({ close }) => {
               <GrFormClose />
             </button>{" "}
             <div className="flex  ">
-              <GlobalForm
-                onSubmit={onSubmit}
-                schema={schema}
-                inputFields={inputFields}
-              />
+              <GlobalForm onSubmit={onSubmit} inputFields={inputFields} />
             </div>
           </div>
         </div>

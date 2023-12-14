@@ -7,6 +7,7 @@ const Login = () => {
     e.preventDefault();
     handleLogin();
   };
+
   return (
     <>
       <section className=" w-[80vw] h-[85vh] mt-20 -ms-12 border border-transparent bg-white rounded-lg">

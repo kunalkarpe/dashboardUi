@@ -17,38 +17,38 @@ function App() {
             <Route
               path="/"
               element={
-                <ProtectedRoute>
-                  <Suspense fallback={<div>Wait it is Loading....</div>}>
-                    <Home />
-                  </Suspense>
-                </ProtectedRoute>
+                // <ProtectedRoute>
+                <Suspense fallback={<div>Wait it is Loading....</div>}>
+                  <Home />
+                </Suspense>
+                // </ProtectedRoute>
               }
             />
 
             <Route
               path="/singleuserdetails/:id"
               element={
-                <ProtectedRoute>
-                  <Userdetails />
-                </ProtectedRoute>
+                // <ProtectedRoute>
+                <Userdetails />
+                // </ProtectedRoute>
               }
             />
             <Route path="/mockuser" element={<MockUser />} />
             <Route
               path="/user"
               element={
-                <ProtectedRoute>
-                  <MockUser />
-                </ProtectedRoute>
+                // <ProtectedRoute>
+                <MockUser />
+                // </ProtectedRoute>
               }
             />
 
             <Route
               path="/login"
               element={
-                <ProtectedRoute>
-                  <Login />
-                </ProtectedRoute>
+                // <ProtectedRoute>
+                <Login />
+                // </ProtectedRoute>
               }
             />
           </Routes>

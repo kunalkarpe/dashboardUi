@@ -20,7 +20,7 @@ const Toasters = () => {
 
           // Default options for specific types
           success: {
-            duration: 3000,
+            duration: 5000,
             theme: {
               primary: "green",
               secondary: "black",

@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import mdata from "@src/pages/Mockuser/MocakData/MOCK_DATA";
-import toast from "react-hot-toast";
+import Deletetoast from "@src/pages/Mockuser/Toast/Deletetoast";
 
 function useMockUser() {
   const data = useMemo(() => mdata, []);
@@ -13,7 +13,6 @@ function useMockUser() {
   const [openModal, setOpenModal] = useState(false);
   const [openEditMoadal, setOpenEditMoadal] = useState(false);
   const [editData, setEditData] = useState();
-  const notifyDelete = () => toast.success("People Deleted succesfully!");
   const openAddModal = () => {
     setOpenModal(true);
   };
@@ -26,7 +25,7 @@ function useMockUser() {
     const deletedData = mockData.filter((data) => data.id !== id);
     setMockData(deletedData);
     setShow(false);
-    notifyDelete();
+    Deletetoast();
   };
 
   const handleEdit = (data) => {

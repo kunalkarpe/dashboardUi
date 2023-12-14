@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { IoCloseSharp } from "react-icons/io5";
-import toast from "react-hot-toast";
+import Edittoast from "./Toast/Edittoast";
+import { IoIosClose } from "react-icons/io";
 
 const MockuserEditModal = ({
   close,
@@ -9,7 +9,6 @@ const MockuserEditModal = ({
   setMockData,
   setShow,
 }) => {
-  const notifyEdit = () => toast.success("People edited Successfully");
   const { id, first_name, last_name, email, gender } = editData;
   const [value, setValue] = useState({
     id: id,
@@ -28,7 +27,7 @@ const MockuserEditModal = ({
     newArray.splice(findEditedIndex, 1, value);
     setMockData(newArray);
     close();
-    notifyEdit();
+    Edittoast();
     setShow(false);
   };
 
@@ -45,7 +44,7 @@ const MockuserEditModal = ({
               onClick={close}
               className="mt-5 border border-black relative hover:cursor   -top-11 left-72  rounded-full"
             >
-              <IoCloseSharp />
+              <IoIosClose />
             </button>{" "}
             <div className="-top-20">
               <form action="" method="post" onSubmit={handleSubmit}>

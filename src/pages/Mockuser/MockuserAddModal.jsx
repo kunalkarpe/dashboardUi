@@ -1,25 +1,22 @@
 import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
-import toast from "react-hot-toast";
-import * as yup from "yup";
 import GlobalForm from "@src/Helpers/GLobalForm";
+import NotifyAdd from "./Toast/Addtoast";
+import Error from "./Toast/Error";
 
 const MockuserAddModal = ({ close, mockData, setMockData }) => {
-  const notifyAdd = () => toast.success("People added succesfully!");
-  const notifyUserExist = () => toast.error("User already exist");
-
   const onSubmit = (data) => {
     const userExist = mockData.some(
       (person) =>
         person.first_name.toLowerCase() === data.first_name.toLowerCase()
     );
     if (userExist) {
-      notifyUserExist();
+      Error();
       close();
     } else {
       setMockData([data, ...mockData]);
       close();
-      notifyAdd();
+      NotifyAdd();
     }
   };
 
@@ -28,20 +25,32 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
       name: "first_name",
       type: "text",
       placeholder: "Enter your first name... ",
+      pattern: {
+        value: /^[a-zA-Z\s]+$/,
+        message: "Cannot use numbers and special character in Name",
+      },
     },
     {
       name: "last_name",
       type: "text",
       placeholder: "Enter your last name...",
+      pattern: {
+        value: /^[a-zA-Z\s]+$/,
+        message: "Cannot use numbers and special character in Name",
+      },
     },
     {
       name: "email",
       type: "email",
       placeholder: "Enter your  email... ",
+      pattern: {
+        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+        message: "Invalid email address",
+      },
     },
     {
       name: "gender",
-      type: "radio",
+      type: "select",
       options: [
         { value: "male", label: "Male" },
         { value: "female", label: "Female" },

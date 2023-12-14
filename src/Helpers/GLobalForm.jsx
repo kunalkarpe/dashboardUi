@@ -17,32 +17,30 @@ const GlobalForm = ({ onSubmit, inputFields }) => {
                 key={index}
                 className="flex flex-col justify-center items-center py-1"
               >
-                {fields.type === "radio" ? (
+                {fields.type === "select" ? (
                   <>
                     <div
                       key={index}
-                      className="border border-transparent flex justify-between w-52"
+                      className="border border-transparent flex   w-52"
                     >
-                      <label htmlFor={fields.name}>{fields.name} :</label>
-                      {fields?.options.map((data) => {
-                        return (
-                          <>
-                            <div className="flex  items-center justify-center  justify-between  ">
-                              <input
-                                type={fields.type}
-                                {...register(fields.name, {
-                                  required: `${fields.name} is required`,
-                                })}
-                                value={data.value}
-                              />
-
-                              <label className="ms-1" htmlFor={data.label}>
-                                {data.label}
-                              </label>
-                            </div>
-                          </>
-                        );
-                      })}
+                      <label htmlFor={fields.name}>{fields.name} : </label>
+                      <select
+                        className="ms-2 border border-slate-400 rounded-lg outline-none"
+                        {...register(fields.name, {
+                          required: `${fields.name} is required`,
+                        })}
+                      >
+                        <option key={index} value="">
+                          Select...
+                        </option>
+                        {fields?.options.map((data) => {
+                          return (
+                            <>
+                              <option value={data.value}>{data.value}</option>
+                            </>
+                          );
+                        })}
+                      </select>
                     </div>
                     {errors[fields.name] && (
                       <span className="flex text-xs text-red-500 w-44 border border-transparent -ms-6">
@@ -57,11 +55,12 @@ const GlobalForm = ({ onSubmit, inputFields }) => {
                       name={fields.name}
                       {...register(fields.name, {
                         required: `${fields.name} is required`,
+                        pattern: fields.pattern,
                       })}
                       type={fields.type}
                       placeholder={fields.placeholder}
                       className="border border-slate-300 rounded-lg ps-2 h-10 w-56"
-                    />{" "}
+                    />
                     {errors[fields.name] && (
                       <span className="flex text-xs text-red-500 w-44 border -ms-8 border-transparent">
                         {errors[fields.name].message}
