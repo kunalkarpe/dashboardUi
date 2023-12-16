@@ -28,9 +28,7 @@ const Modal = ({ close }) => {
       },
       validate: {
         noNumbers: (value) =>
-          /\d/.test(value) ? "Numbers are not allowed  " : true,
-        noSpaces: (value) =>
-          /\s/.test(value) ? "Spaces are not allowed  " : true,
+          /\d/.test(value) ? "Numbers are not allowed  " : true, 
       },
     },
 

@@ -28,8 +28,6 @@ const EditModal = ({ closed, data }) => {
       validate: {
         noNumbers: (value) =>
           /\d/.test(value) ? "Numbers are not allowed  " : true,
-        noSpaces: (value) =>
-          /\s/.test(value) ? "Spaces are not allowed  " : true,
       },
     },
 

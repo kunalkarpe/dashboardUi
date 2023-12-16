@@ -17,11 +17,11 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
     });
   };
 
+  const id = mockData.length + 1;
   const onSubmit = async (data) => {
-    console.log(data);
     if (data.image[0]) {
       const imageUrl = await imgUrlConvert(data.image[0]);
-      data = { ...data, image: imageUrl };
+      data = { id, ...data, image: imageUrl };
     }
 
     const userExist = mockData.some(

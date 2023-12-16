@@ -40,7 +40,7 @@ const GlobalForm = ({ onSubmit, inputFields, defaultValues }) => {
                             <Listbox.Label>{fields.name}: </Listbox.Label>
                             <Listbox.Button className="relative ml-4 w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                               <span className="block truncate">
-                                {field.value || "Select Gender"}
+                                {field.value || `Select ${fields.name}..`}
                               </span>
                               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                 <RiExpandUpDownLine
@@ -55,13 +55,13 @@ const GlobalForm = ({ onSubmit, inputFields, defaultValues }) => {
                               leaveFrom="opacity-100"
                               leaveTo="opacity-0"
                             >
-                              <Listbox.Options className="absolute  -translate-x-52 translate-y-4 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                              <Listbox.Options className="absolute -translate-x-36 z-10   translate-y-4 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
                                 {fields?.options?.map((options) => {
                                   return (
                                     <>
                                       <Listbox.Option
                                         className={({ active }) =>
-                                          `relative cursor-default  select-none py-2 pl-10  pr-4 ${
+                                          `relative cursor-default  select-none py-2 pl-10  pr-4  z-10 ${
                                             active
                                               ? "bg-amber-100 text-amber-900"
                                               : "text-gray-900"
@@ -125,12 +125,8 @@ const GlobalForm = ({ onSubmit, inputFields, defaultValues }) => {
                         {...register(fields.name, {
                           required: `${fields.name} is required`,
                           pattern: fields.pattern,
-                          validate: {
-                            noNumbers: (value) =>
-                              fields.validate?.noNumbers(value) || true,
-                            noSpaces: (value) =>
-                              fields.validate?.noSpaces(value) || true,
-                          },
+
+                          validate: fields.validate,
                         })}
                         type={fields.type}
                         placeholder={fields.placeholder}

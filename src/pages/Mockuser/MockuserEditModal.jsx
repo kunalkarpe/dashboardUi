@@ -99,7 +99,7 @@ const MockuserEditModal = ({
     <>
       <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-200 bg-opacity-90 z-50">
         <div className=" container   fixed ">
-          <div className="  rounded-2xl bg-slate-100 w-80 h-[64vh] border border-transparent shadow-lg top-5 relative top-[20vh] left-[40%]  ">
+          <div className="  rounded-2xl bg-slate-100 w-80 h-[72vh] border border-transparent shadow-lg top-5 relative top-[12vh] left-[40%]  ">
             <div className="text-lg px-8  mt-4 underline underline-offset-8">
               Edit Members
             </div>

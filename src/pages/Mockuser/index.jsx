@@ -163,6 +163,7 @@ const MockUser = () => {
     onSortingChange: setSorting,
     onGlobalFilteringChange: setFiltering,
   });
+
   return (
     <>
       <Nav />
@@ -180,6 +181,7 @@ const MockUser = () => {
           close={close}
           mockData={mockData}
           setMockData={setMockData}
+          // id={columns.row.index + 1}
         />
       )}
       {openEditMoadal && (
