@@ -1,6 +1,8 @@
 import useLogin from "./hooks/useLogin";
 import loginImage from "../../Ui/Images/login.jpg";
 import GlobalForm from "@src/Helpers/GLobalForm";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const Login = () => {
   const { loginMutation } = useLogin();
@@ -49,8 +51,8 @@ const Login = () => {
               inputFields={inputFields}
             />
           </div>
-          <div className="flex w-[40vw] h-[77vh] border border-transparent">
-            <img src={loginImage} alt="" />
+          <div className="flex w-[40vw] h-[77vh] border border-transparent"> 
+            <LazyLoadImage src={loginImage} alt="" effect="blur" />
           </div>
         </div>
       </section>

@@ -11,15 +11,16 @@ const MockuserEditModal = ({
   setShow,
 }) => {
   const { id, first_name, last_name, email, gender, image } = editData;
+
   const imageValidate = (value) => {
     const file = value[0];
     if (file.size > 50000) {
       return "File size is greater then 50kb";
     }
-    const ImgType = ["image/.jpg", "image/.png", "image/.svg"];
-    if (!ImgType.includes(file.type)) {
-      return "File not supported";
-    }
+    // const ImgType = ["image/.jpeg", "image/.png", "image/.svg+xml"];
+    // if (!ImgType.includes(file.type)) {
+    //   return "File not supported";
+    // }
 
     return true;
   };
@@ -86,7 +87,23 @@ const MockuserEditModal = ({
   ];
 
   const findEditedIndex = mockData.findIndex((member) => member.id === id);
-  const onSubmit = (data) => {
+  const imgUrlConvert = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const imgReader = reader.result;
+        resolve(imgReader);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+  const onSubmit = async (data) => {
+    if (data.image[0]) {
+      const imageUrl = await imgUrlConvert(data.image[0]);
+      data = { id, ...data, image: imageUrl };
+      console.log(data);
+    }
     const newArray = [...mockData];
     newArray.splice(findEditedIndex, 1, data);
     setMockData(newArray);

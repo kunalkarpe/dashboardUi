@@ -117,7 +117,9 @@ const GlobalForm = ({ onSubmit, inputFields, defaultValues }) => {
                   ""
                 )}
 
-                {fields.type === "text" || fields.type === "email" ? (
+                {fields.type === "text" ||
+                fields.type === "email" ||
+                fields.type === "password" ? (
                   <>
                     <div className="border border-transparent h-[9vh] ">
                       <input

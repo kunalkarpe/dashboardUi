@@ -43,8 +43,8 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
     if (file.size > 50000) {
       return "File size is greater then 50kb";
     }
-    const ImgType = ["image/jpeg", "image/png", "image/svg+xml"];
-    if (!ImgType.includes(file.type)) {
+    const ImgType = ["image/jpeg", "image/png", "image/svg+xml", "image/jpg"];
+    if (!ImgType.some((type) => file.type.startsWith(type))) {
       return "File not supported";
     }
 
