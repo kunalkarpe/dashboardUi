@@ -18,6 +18,7 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
   };
 
   const onSubmit = async (data) => {
+    console.log(data);
     if (data.image[0]) {
       const imageUrl = await imgUrlConvert(data.image[0]);
       data = { ...data, image: imageUrl };
@@ -37,14 +38,32 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
     }
   };
 
+  const imageValidate = (value) => {
+    const file = value[0];
+    if (file.size > 50000) {
+      return "File size is greater then 50kb";
+    }
+    const ImgType = ["image/jpeg", "image/png", "image/svg+xml"];
+    if (!ImgType.includes(file.type)) {
+      return "File not supported";
+    }
+
+    return true;
+  };
   const inputFields = [
     {
       name: "first_name",
       type: "text",
       placeholder: "Enter your first name... ",
       pattern: {
-        value: /^[a-zA-Z\s]+$/,
-        message: "Cannot use numbers and special character in Name",
+        value: /^[a-zA-Z\s0-9]+$/,
+        message: "Please Enter Albhabets Only  ",
+      },
+      validate: {
+        noNumbers: (value) =>
+          /\d/.test(value) ? "Numbers are not allowed " : true,
+        noSpaces: (value) =>
+          /\s/.test(value) ? "Spaces are not allowed  " : true,
       },
     },
     {
@@ -52,8 +71,14 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
       type: "text",
       placeholder: "Enter your last name...",
       pattern: {
-        value: /^[a-zA-Z\s]+$/,
-        message: "Cannot use numbers and special character in Name",
+        value: /^[a-zA-Z\s0-9]+$/,
+        message: "Please Enter Albhabets Only  ",
+      },
+      validate: {
+        noNumbers: (value) =>
+          /\d/.test(value) ? "Numbers are not allowed  " : true,
+        noSpaces: (value) =>
+          /\s/.test(value) ? "Spaces are not allowed " : true,
       },
     },
     {
@@ -61,7 +86,7 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
       type: "email",
       placeholder: "Enter your  email... ",
       pattern: {
-        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i,
         message: "Invalid email address",
       },
     },
@@ -76,13 +101,14 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
     {
       name: "image",
       type: "file",
+      validate: imageValidate,
     },
   ];
   return (
     <>
       <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-200 bg-opacity-90 z-50">
         <div className=" container   fixed ">
-          <div className="  rounded-2xl bg-slate-100 w-80 h-[60vh] border border-transparent shadow-lg top-5 relative top-[25vh] left-[40%]  ">
+          <div className="  rounded-2xl bg-slate-100 w-80 h-[76vh] border border-transparent shadow-lg top-5 relative top-[10vh] left-[40%]  ">
             <div className="text-lg px-8  mt-4 underline underline-offset-8">
               Add new Members
             </div>
@@ -92,7 +118,7 @@ const MockuserAddModal = ({ close, mockData, setMockData }) => {
             >
               <IoCloseSharp />
             </button>{" "}
-            <div className="-top-20">
+            <div className="-mt-4">
               <GlobalForm onSubmit={onSubmit} inputFields={inputFields} />
             </div>
           </div>

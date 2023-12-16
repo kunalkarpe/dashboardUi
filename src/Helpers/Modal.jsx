@@ -23,8 +23,14 @@ const Modal = ({ close }) => {
       type: "text",
       placeholder: "Enter your  name... ",
       pattern: {
-        value: /^[a-zA-Z\s]+$/,
-        message: "Cannot use numbers and special character in Name",
+        value: /^[a-zA-Z\s0-9]+$/,
+        message: "Please Enter Albhabets Only  ",
+      },
+      validate: {
+        noNumbers: (value) =>
+          /\d/.test(value) ? "Numbers are not allowed  " : true,
+        noSpaces: (value) =>
+          /\s/.test(value) ? "Spaces are not allowed  " : true,
       },
     },
 

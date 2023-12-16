@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Edittoast from "./Toast/Edittoast";
 import { IoIosClose } from "react-icons/io";
 import GlobalForm from "@src/Helpers/GLobalForm";
+import mockdata from "./MocakData/NewMockData";
 const MockuserEditModal = ({
   close,
   editData,
@@ -9,13 +10,25 @@ const MockuserEditModal = ({
   setMockData,
   setShow,
 }) => {
-  const { id, first_name, last_name, email, gender } = editData;
+  const { id, first_name, last_name, email, gender, image } = editData;
+  const imageValidate = (value) => {
+    const file = value[0];
+    if (file.size > 50000) {
+      return "File size is greater then 50kb";
+    }
+    const ImgType = ["image/.jpg", "image/.png", "image/.svg"];
+    if (!ImgType.includes(file.type)) {
+      return "File not supported";
+    }
 
+    return true;
+  };
   const defaultValues = {
     first_name: first_name || "",
     last_name: last_name || "",
     gender: gender || "",
     email: email || "",
+    image: image || "",
   };
   const inputFields = [
     {
@@ -23,8 +36,14 @@ const MockuserEditModal = ({
       type: "text",
       placeholder: "Enter your first name... ",
       pattern: {
-        value: /^[a-zA-Z\s]+$/,
-        message: "Cannot use numbers and special character in Name",
+        value: /^[a-zA-Z\s0-9]+$/,
+        message: "Please Enter Albhabets Only  ",
+      },
+      validate: {
+        noNumbers: (value) =>
+          /\d/.test(value) ? "Numbers are not allowed  " : true,
+        noSpaces: (value) =>
+          /\s/.test(value) ? "Spaces are not allowed  " : true,
       },
     },
     {
@@ -32,8 +51,14 @@ const MockuserEditModal = ({
       type: "text",
       placeholder: "Enter your last name...",
       pattern: {
-        value: /^[a-zA-Z\s]+$/,
-        message: "Cannot use numbers and special character in Name",
+        value: /^[a-zA-Z\s0-9]+$/,
+        message: "Please Enter Albhabets Only  ",
+      },
+      validate: {
+        noNumbers: (value) =>
+          /\d/.test(value) ? "Numbers are not allowed " : true,
+        noSpaces: (value) =>
+          /\s/.test(value) ? "Spaces are not allowed  " : true,
       },
     },
     {
@@ -53,6 +78,11 @@ const MockuserEditModal = ({
         { value: "Female", label: "Female" },
       ],
     },
+    {
+      name: "image",
+      type: "file",
+      validate: imageValidate,
+    },
   ];
 
   const findEditedIndex = mockData.findIndex((member) => member.id === id);
@@ -69,9 +99,9 @@ const MockuserEditModal = ({
     <>
       <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-200 bg-opacity-90 z-50">
         <div className=" container   fixed ">
-          <div className="  rounded-2xl bg-slate-100 w-80 h-[60vh] border border-transparent shadow-lg top-5 relative top-[25vh] left-[40%]  ">
+          <div className="  rounded-2xl bg-slate-100 w-80 h-[64vh] border border-transparent shadow-lg top-5 relative top-[20vh] left-[40%]  ">
             <div className="text-lg px-8  mt-4 underline underline-offset-8">
-              Add new Members
+              Edit Members
             </div>
             <button
               onClick={close}
@@ -79,11 +109,13 @@ const MockuserEditModal = ({
             >
               <IoIosClose />
             </button>{" "}
-            <GlobalForm
-              onSubmit={onSubmit}
-              inputFields={inputFields}
-              defaultValues={defaultValues}
-            />
+            <div className="-mt-4">
+              <GlobalForm
+                onSubmit={onSubmit}
+                inputFields={inputFields}
+                defaultValues={defaultValues}
+              />
+            </div>
           </div>
         </div>
       </div>
