@@ -61,11 +61,6 @@ const MockUser = () => {
           <>
             <div className="container">
               <div className="flex  justify-center">
-                {/* <img
-                  src={row.original.image}
-                  alt=""
-                  className="   w-8 h-8  border border-slate-400 rounded-full "
-                /> */}
                 <LazyLoadImage
                   src={row.original.image}
                   className="   w-8 h-8  border border-slate-400 rounded-full "
